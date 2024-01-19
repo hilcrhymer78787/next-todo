@@ -24,7 +24,7 @@ const Login = () => {
   const [password, setPassword] = React.useState("")
   const [passwordConfirm, setPasswordConfirm] = React.useState("")
   const submit = async () => {
-    createUser(name, email, password, passwordConfirm)
+    await createUser(name, email, password, passwordConfirm)
   }
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) submit()

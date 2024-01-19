@@ -35,12 +35,11 @@ export const useCreateUser = () => {
       method: "POST",
       data: { name, email, password }
     }
-    myAxios(requestConfig)
+    return myAxios(requestConfig)
       .then((res) => {
         return res
       })
-      .catch((err) => {
-        console.log(err.response)
+      .catch(() => {
         setCreateUserError("通信に失敗しました")
       })
       .finally(() => {
