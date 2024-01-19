@@ -1,16 +1,14 @@
 import React from "react"
+import { myAxios } from "@/plugins/axios"
 export const useCreateUser = () => {
   const [createUserLoading, setCreateUserLoading] = React.useState(false)
   const [createUserError, setCreateUserError] = React.useState("")
   const [emailError, setEmailError] = React.useState("")
   const [nameError, setNameError] = React.useState("")
   const [passwordError, setPasswordError] = React.useState("")
-  const createUser = async (
-    email: string,
-    password: string,
-    name: string,
-  ) => {
+  const createUser = async (name: string, email: string, password: string, passwordConfirm: string) => {
     setCreateUserError("")
+    setNameError("")
     setEmailError("")
     setPasswordError("")
     let isError = false
@@ -22,13 +20,32 @@ export const useCreateUser = () => {
       setNameError("名前は必須です")
       isError = true
     }
+    if (password !== passwordConfirm) {
+      setPasswordError("パスワードが一致しません")
+      isError = true
+    }
     if (password.length < 8) {
       setPasswordError("パスワードは8桁以上で設定してください")
       isError = true
     }
-    if (isError) throw new Error("登録に失敗しました")
+    if (isError) return
     setCreateUserLoading(true)
-    // axios
+    const requestConfig = {
+      url: "/user/create",
+      method: "POST",
+      data: { name, email, password }
+    }
+    myAxios(requestConfig)
+      .then((res) => {
+        return res
+      })
+      .catch((err) => {
+        console.log(err.response)
+        setCreateUserError("通信に失敗しました")
+      })
+      .finally(() => {
+        setCreateUserLoading(false)
+      })
   }
 
   return {

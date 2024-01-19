@@ -13,39 +13,39 @@ import {
 
 import LoadingButton from "@mui/lab/LoadingButton"
 import React from "react"
-import { useCreateUser } from "@/data/user/useCreateUser"
+import { useCreateUser } from "@/data/user/useCreateUser/index"
 
-const Home = () => {
+const Login = () => {
   const [isNew, setIsNew] = React.useState(false)
   const { createUser, createUserError, nameError, emailError, passwordError, createUserLoading } =
     useCreateUser()
-  const [displayName, setDisplayName] = React.useState("")
+  const [name, setName] = React.useState("")
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
   const [passwordConfirm, setPasswordConfirm] = React.useState("")
   const submit = async () => {
-    try {
-      await createUser(email, password, passwordConfirm)
-    } catch (e) {}
+    createUser(name, email, password, passwordConfirm)
   }
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.keyCode === 13) submit()
+  }
+
   return (
-    <Card sx={{m:5}}>
+    <Card sx={{ m: 5 }} data-testid="Login">
       <CardHeader title="新規ユーザー登録" sx={{ display: "flex", alignItems: "center" }} />
       <Divider />
       <CardContent>
         <TextField
-          value={displayName}
+          value={name}
           onChange={(e) => {
-            setDisplayName(e.target.value)
+            setName(e.target.value)
           }}
           label="名前"
           error={!!nameError}
-          helperText={nameError}
-          onKeyDown={(e: any) => {
-            if (e.keyCode !== 13) return
-            submit()
-          }}
+          helperText={<span data-testid="loginNameErr">{nameError}</span>}
+          onKeyDown={onKeyDown}
           sx={{ mb: 3 }}
+          inputProps={{ 'data-testid': "loginName" }}
         />
         <TextField
           value={email}
@@ -54,12 +54,10 @@ const Home = () => {
           }}
           label="メールアドレス"
           error={!!emailError}
-          helperText={emailError}
-          onKeyDown={(e: any) => {
-            if (e.keyCode !== 13) return
-            submit()
-          }}
+          helperText={<span data-testid="loginEmailErr">{emailError}</span>}
+          onKeyDown={onKeyDown}
           sx={{ mb: 3 }}
+          inputProps={{ 'data-testid': "loginEmail" }}
         />
         <TextField
           value={password}
@@ -68,24 +66,20 @@ const Home = () => {
           }}
           label="パスワード"
           error={!!passwordError}
-          helperText={passwordError}
-          onKeyDown={(e: any) => {
-            if (e.keyCode !== 13) return
-            submit()
-          }}
+          helperText={<span data-testid="loginPasswordErr">{passwordError}</span>}
+          onKeyDown={onKeyDown}
           sx={{ mb: 3 }}
+          inputProps={{ 'data-testid': "loginPassword" }}
         />
-        {/* <TextField
+        <TextField
           value={passwordConfirm}
           onChange={(e) => {
             setPasswordConfirm(e.target.value)
           }}
           label="パスワード確認"
-          onKeyDown={(e: any) => {
-            if (e.keyCode !== 13) return
-            submit()
-          }}
-        /> */}
+          onKeyDown={onKeyDown}
+          inputProps={{ 'data-testid': "loginPasswordConfirm" }}
+        />
         {!!createUserError && (
           <Typography sx={{ p: 1 }} color="error">
             {createUserError}
@@ -101,11 +95,15 @@ const Home = () => {
         >
           ログイン画面へ
         </Button>
-        <LoadingButton onClick={submit} loading={createUserLoading} variant="contained">
+        <LoadingButton
+          onClick={submit}
+          loading={createUserLoading}
+          data-testid="submitBtn"
+          variant="contained">
           登録
         </LoadingButton>
       </CardActions>
     </Card>
   )
 }
-export default Home
+export default Login
