@@ -1,12 +1,12 @@
 import "@testing-library/jest-dom"
 
-import { act, render, renderHook, screen } from "@testing-library/react"
+import { act, renderHook } from "@testing-library/react"
 
-import axios from 'axios'
+import { myAxios } from "@/plugins/axios"
 import { useCreateUser } from "./"
 
+jest.mock('@/plugins/axios');
 describe("useCreateUser", () => {
-
   it('何も入力せずに登録した場合', async () => {
     const { result } = renderHook(() => useCreateUser());
     expect(result.current.nameError).toBe('');
@@ -21,5 +21,12 @@ describe("useCreateUser", () => {
     expect(result.current.passwordError).toBe('パスワードは8桁以上で設定してください');
     expect(result.current.createUserLoading).toBe(false);
   });
-
+  it('通信のテスト', async () => {
+    myAxios.mockResolvedValue(null);
+    const { result } = renderHook(() => useCreateUser());
+    await act(async () => {
+      await result.current.createUser('John Doe', 'john@example.com', 'password123', 'password123');
+    });
+    expect(result.current.createUserError).toBe('');
+  });
 })
