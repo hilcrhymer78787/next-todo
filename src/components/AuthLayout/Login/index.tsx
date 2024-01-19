@@ -82,8 +82,8 @@ const Login = ({ setIsNew }: { setIsNew: React.Dispatch<React.SetStateAction<boo
       </CardContent>
       <Divider />
       <CardActions sx={{ justifyContent: "space-between" }}>
-        <Button onClick={() => { setIsNew(false) }}>
-          ログイン画面へ
+        <Button onClick={() => { setIsNew(true) }}>
+          新規登録画面へ
         </Button>
         <LoadingButton onClick={submit} loading={createUserLoading} data-testid="submitBtn" variant="contained">
           登録
