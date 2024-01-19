@@ -29,7 +29,7 @@ const Login = ({ setIsNew }: { setIsNew: React.Dispatch<React.SetStateAction<boo
 
   return (
     <Card sx={{ m: 5 }} data-testid="Login">
-      <CardHeader title="新規ユーザー登録" sx={{ display: "flex", alignItems: "center" }} />
+      <CardHeader title="ログイン" sx={{ display: "flex", alignItems: "center" }} />
       <Divider />
       <CardContent>
         <Box>
