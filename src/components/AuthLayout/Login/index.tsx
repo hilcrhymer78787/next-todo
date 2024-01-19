@@ -12,16 +12,17 @@ import {
 
 import LoadingButton from "@mui/lab/LoadingButton"
 import React from "react"
-import { useCreateUser } from "@/data/user/useCreateUser/index"
+import { useBasicAuth } from "@/data/user/useBasicAuth"
 
-const Login = ({ setIsNew }: { setIsNew: React.Dispatch<React.SetStateAction<boolean>> }) => {
-  const { createUser, createUserError, nameError, emailError, passwordError, createUserLoading } = useCreateUser()
-  const [name, setName] = React.useState("")
+type Props = {
+  setIsNew: React.Dispatch<React.SetStateAction<boolean>>
+}
+const Login = ({ setIsNew }: Props) => {
+  const { basicAuth, basicAuthError, emailError, passwordError, basicAuthLoading } = useBasicAuth()
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
-  const [passwordConfirm, setPasswordConfirm] = React.useState("")
   const submit = async () => {
-    await createUser(name, email, password, passwordConfirm)
+    await basicAuth(email, password)
   }
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) submit()
@@ -32,18 +33,7 @@ const Login = ({ setIsNew }: { setIsNew: React.Dispatch<React.SetStateAction<boo
       <CardHeader title="ログイン" sx={{ display: "flex", alignItems: "center" }} />
       <Divider />
       <CardContent>
-        <Box>
-          <TextField
-            value={name}
-            onChange={(e) => { setName(e.target.value) }}
-            label="名前"
-            error={!!nameError}
-            helperText={<span data-testid="loginNameErr">{nameError}</span>}
-            onKeyDown={onKeyDown}
-            inputProps={{ "data-testid": "loginName" }}
-          />
-        </Box>
-        <Box>
+        <Box sx={{ mb: 2 }}>
           <TextField
             value={email}
             onChange={(e) => { setEmail(e.target.value) }}
@@ -65,18 +55,9 @@ const Login = ({ setIsNew }: { setIsNew: React.Dispatch<React.SetStateAction<boo
             inputProps={{ "data-testid": "loginPassword" }}
           />
         </Box>
-        <Box>
-          <TextField
-            value={passwordConfirm}
-            onChange={(e) => { setPasswordConfirm(e.target.value) }}
-            label="パスワード確認"
-            onKeyDown={onKeyDown}
-            inputProps={{ "data-testid": "loginPasswordConfirm" }}
-          />
-        </Box>
-        {!!createUserError && (
+        {!!basicAuthError && (
           <Typography sx={{ p: 1 }} color="error" data-testid="loginApiErr">
-            {createUserError ?? ""}
+            {basicAuthError ?? ""}
           </Typography>
         )}
       </CardContent>
@@ -85,7 +66,7 @@ const Login = ({ setIsNew }: { setIsNew: React.Dispatch<React.SetStateAction<boo
         <Button onClick={() => { setIsNew(true) }}>
           新規登録画面へ
         </Button>
-        <LoadingButton onClick={submit} loading={createUserLoading} data-testid="submitBtn" variant="contained">
+        <LoadingButton onClick={submit} loading={basicAuthLoading} data-testid="submitBtn" variant="contained">
           登録
         </LoadingButton>
       </CardActions>

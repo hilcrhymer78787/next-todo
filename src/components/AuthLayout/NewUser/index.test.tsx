@@ -1,18 +1,17 @@
 import "@testing-library/jest-dom"
 
-import { act, renderHook, waitFor } from "@testing-library/react"
-import { fireEvent, render, screen } from "@testing-library/react"
+import { fireEvent, render } from "@testing-library/react"
 
 import NewUser from "./"
+import { act } from "@testing-library/react"
 import { myAxios } from "@/plugins/axios"
 
 jest.mock("@/plugins/axios")
 
 describe("TalkRoomListItem", () => {
   it("コンポーネントが表示される", () => {
-    render(<NewUser setIsNew={jest.fn()}/>)
-    const component = screen.getByTestId("Login")
-    expect(component).toBeInTheDocument()
+    const { getByTestId } = render(<NewUser setIsNew={jest.fn()}/>)
+    expect(getByTestId("Login")).toBeInTheDocument()
   })
 
   describe("loginName", () => {

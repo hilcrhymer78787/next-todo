@@ -14,7 +14,10 @@ import LoadingButton from "@mui/lab/LoadingButton"
 import React from "react"
 import { useCreateUser } from "@/data/user/useCreateUser/index"
 
-const NewUser = ({ setIsNew }: { setIsNew: React.Dispatch<React.SetStateAction<boolean>> }) => {
+type Props = {
+  setIsNew: React.Dispatch<React.SetStateAction<boolean>>
+}
+const NewUser = ({ setIsNew }: Props) => {
   const { createUser, createUserError, nameError, emailError, passwordError, createUserLoading } = useCreateUser()
   const [name, setName] = React.useState("")
   const [email, setEmail] = React.useState("")
