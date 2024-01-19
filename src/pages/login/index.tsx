@@ -1,6 +1,4 @@
 import {
-  Avatar,
-  Box,
   Button,
   Card,
   CardActions,
@@ -36,62 +34,47 @@ const Login = () => {
       <CardContent>
         <TextField
           value={name}
-          onChange={(e) => {
-            setName(e.target.value)
-          }}
+          onChange={(e) => { setName(e.target.value) }}
           label="名前"
           error={!!nameError}
           helperText={<span data-testid="loginNameErr">{nameError}</span>}
           onKeyDown={onKeyDown}
-          sx={{ mb: 3 }}
           inputProps={{ "data-testid": "loginName" }}
         />
         <TextField
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value)
-          }}
+          onChange={(e) => { setEmail(e.target.value) }}
           label="メールアドレス"
           error={!!emailError}
           helperText={<span data-testid="loginEmailErr">{emailError}</span>}
           onKeyDown={onKeyDown}
-          sx={{ mb: 3 }}
           inputProps={{ "data-testid": "loginEmail" }}
         />
         <TextField
           value={password}
-          onChange={(e) => {
-            setPassword(e.target.value)
-          }}
+          onChange={(e) => { setPassword(e.target.value) }}
           label="パスワード"
           error={!!passwordError}
           helperText={<span data-testid="loginPasswordErr">{passwordError}</span>}
           onKeyDown={onKeyDown}
-          sx={{ mb: 3 }}
           inputProps={{ "data-testid": "loginPassword" }}
         />
         <TextField
           value={passwordConfirm}
-          onChange={(e) => {
-            setPasswordConfirm(e.target.value)
-          }}
+          onChange={(e) => { setPasswordConfirm(e.target.value) }}
           label="パスワード確認"
           onKeyDown={onKeyDown}
           inputProps={{ "data-testid": "loginPasswordConfirm" }}
         />
         {!!createUserError && (
           <Typography sx={{ p: 1 }} color="error" data-testid="loginApiErr">
-            {createUserError}
+            {createUserError ?? ""}
           </Typography>
         )}
       </CardContent>
       <Divider />
       <CardActions sx={{ justifyContent: "space-between" }}>
-        <Button
-          onClick={() => {
-            setIsNew(false)
-          }}
-        >
+        <Button onClick={() => { setIsNew(false) }}>
           ログイン画面へ
         </Button>
         <LoadingButton onClick={submit} loading={createUserLoading} data-testid="submitBtn" variant="contained">
