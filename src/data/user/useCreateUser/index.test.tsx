@@ -25,7 +25,8 @@ describe("useCreateUser", () => {
   it("通信のテスト（成功）", async () => {
     const { result } = renderHook(() => useCreateUser())
     await act(async () => {
-      ;(myAxios as any).mockResolvedValue(null)
+      const axios: any = myAxios
+      axios.mockResolvedValue(null)
       await result.current.createUser("John Doe", "john@example.com", "password123", "password123")
     })
     expect(result.current.createUserError).toBe("")
@@ -34,7 +35,8 @@ describe("useCreateUser", () => {
   it("通信のテスト（失敗）", async () => {
     const { result } = renderHook(() => useCreateUser())
     await act(async () => {
-      ;(myAxios as any).mockRejectedValue(new Error("Async error message"))
+      const axios: any = myAxios
+      axios.mockRejectedValue(new Error("Async error message"))
       await result.current.createUser("John Doe", "john@example.com", "password123", "password123")
     })
     expect(result.current.createUserError).toBe("通信に失敗しました")
