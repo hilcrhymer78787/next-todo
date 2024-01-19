@@ -1,8 +1,8 @@
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { orange, red } from "@mui/material/colors";
+import { ThemeProvider, createTheme } from "@mui/material/styles"
+import { orange, red } from "@mui/material/colors"
 const theme = createTheme({
   palette: {
-    mode: "light",
+    mode: "light"
     // primary: {
     //   main: '#0097a7',
     // },
@@ -22,10 +22,10 @@ const theme = createTheme({
           fontSize: "18px",
           "& .MuiSvgIcon-root": {
             color: "white",
-            backgroundColor: "#0097a7",
-          },
-        },
-      },
+            backgroundColor: "#0097a7"
+          }
+        }
+      }
     },
     MuiButton: {
       styleOverrides: {
@@ -35,30 +35,29 @@ const theme = createTheme({
           color: "white",
           padding: "8px 12px",
           opacity: 1.0,
-          boxShadow:
-            "0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%)",
+          boxShadow: "0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%)",
           "&:hover": {
             backgroundColor: "orange",
-            opacity: 0.9,
-          },
-        },
-      },
+            opacity: 0.9
+          }
+        }
+      }
     },
     MuiCircularProgress: {
       styleOverrides: {
         root: {
-          color: "#0097a7",
-        },
-      },
+          color: "#0097a7"
+        }
+      }
     },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
           borderRadius: "10px",
-          marginRight: "15px",
-        },
-      },
-    },
+          marginRight: "15px"
+        }
+      }
+    }
 
     // MuiCard: {
     //   styleOverrides: {
@@ -79,6 +78,6 @@ const theme = createTheme({
     //     dividers: true,
     //   },
     // },
-  },
-});
+  }
+})
 export default theme

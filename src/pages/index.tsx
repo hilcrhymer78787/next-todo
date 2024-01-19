@@ -5,6 +5,6 @@ const Home = () => {
     <Box sx={{ p: 5 }}>
       <Typography>Home</Typography>
     </Box>
-  );
+  )
 }
 export default Home

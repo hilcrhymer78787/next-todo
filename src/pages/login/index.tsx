@@ -17,8 +17,7 @@ import { useCreateUser } from "@/data/user/useCreateUser/index"
 
 const Login = () => {
   const [isNew, setIsNew] = React.useState(false)
-  const { createUser, createUserError, nameError, emailError, passwordError, createUserLoading } =
-    useCreateUser()
+  const { createUser, createUserError, nameError, emailError, passwordError, createUserLoading } = useCreateUser()
   const [name, setName] = React.useState("")
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
@@ -45,7 +44,7 @@ const Login = () => {
           helperText={<span data-testid="loginNameErr">{nameError}</span>}
           onKeyDown={onKeyDown}
           sx={{ mb: 3 }}
-          inputProps={{ 'data-testid': "loginName" }}
+          inputProps={{ "data-testid": "loginName" }}
         />
         <TextField
           value={email}
@@ -57,7 +56,7 @@ const Login = () => {
           helperText={<span data-testid="loginEmailErr">{emailError}</span>}
           onKeyDown={onKeyDown}
           sx={{ mb: 3 }}
-          inputProps={{ 'data-testid': "loginEmail" }}
+          inputProps={{ "data-testid": "loginEmail" }}
         />
         <TextField
           value={password}
@@ -69,7 +68,7 @@ const Login = () => {
           helperText={<span data-testid="loginPasswordErr">{passwordError}</span>}
           onKeyDown={onKeyDown}
           sx={{ mb: 3 }}
-          inputProps={{ 'data-testid': "loginPassword" }}
+          inputProps={{ "data-testid": "loginPassword" }}
         />
         <TextField
           value={passwordConfirm}
@@ -78,10 +77,10 @@ const Login = () => {
           }}
           label="パスワード確認"
           onKeyDown={onKeyDown}
-          inputProps={{ 'data-testid': "loginPasswordConfirm" }}
+          inputProps={{ "data-testid": "loginPasswordConfirm" }}
         />
         {!!createUserError && (
-          <Typography sx={{ p: 1 }} color="error">
+          <Typography sx={{ p: 1 }} color="error" data-testid="loginApiErr">
             {createUserError}
           </Typography>
         )}
@@ -95,11 +94,7 @@ const Login = () => {
         >
           ログイン画面へ
         </Button>
-        <LoadingButton
-          onClick={submit}
-          loading={createUserLoading}
-          data-testid="submitBtn"
-          variant="contained">
+        <LoadingButton onClick={submit} loading={createUserLoading} data-testid="submitBtn" variant="contained">
           登録
         </LoadingButton>
       </CardActions>
