@@ -14,8 +14,7 @@ import LoadingButton from "@mui/lab/LoadingButton"
 import React from "react"
 import { useCreateUser } from "@/data/user/useCreateUser/index"
 
-const Login = () => {
-  const [isNew, setIsNew] = React.useState(false)
+const NewUser = ({ setIsNew }: { setIsNew: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const { createUser, createUserError, nameError, emailError, passwordError, createUserLoading } = useCreateUser()
   const [name, setName] = React.useState("")
   const [email, setEmail] = React.useState("")
@@ -93,4 +92,4 @@ const Login = () => {
     </Card>
   )
 }
-export default Login
+export default NewUser
