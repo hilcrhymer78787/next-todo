@@ -21,7 +21,7 @@ const NewUser = ({ setIsNew }: Props) => {
   }
 
   return (
-    <Card sx={{ m: 5 }} data-testid="Login">
+    <Card sx={{ m: 5 }} data-testid="NewUser">
       <CardHeader title="新規ユーザー登録" sx={{ display: "flex", alignItems: "center" }} />
       <Divider />
       <CardContent>
@@ -33,9 +33,9 @@ const NewUser = ({ setIsNew }: Props) => {
             }}
             label="名前"
             error={!!nameError}
-            helperText={<span data-testid="loginNameErr">{nameError}</span>}
+            helperText={<span data-testid="NewUserNameErr">{nameError}</span>}
             onKeyDown={onKeyDown}
-            inputProps={{ "data-testid": "loginName" }}
+            inputProps={{ "data-testid": "NewUserName" }}
           />
         </Box>
         <Box>
@@ -46,9 +46,9 @@ const NewUser = ({ setIsNew }: Props) => {
             }}
             label="メールアドレス"
             error={!!emailError}
-            helperText={<span data-testid="loginEmailErr">{emailError}</span>}
+            helperText={<span data-testid="NewUserEmailErr">{emailError}</span>}
             onKeyDown={onKeyDown}
-            inputProps={{ "data-testid": "loginEmail" }}
+            inputProps={{ "data-testid": "NewUserEmail" }}
           />
         </Box>
         <Box>
@@ -59,9 +59,9 @@ const NewUser = ({ setIsNew }: Props) => {
             }}
             label="パスワード"
             error={!!passwordError}
-            helperText={<span data-testid="loginPasswordErr">{passwordError}</span>}
+            helperText={<span data-testid="NewUserPasswordErr">{passwordError}</span>}
             onKeyDown={onKeyDown}
-            inputProps={{ "data-testid": "loginPassword" }}
+            inputProps={{ "data-testid": "NewUserPassword" }}
           />
         </Box>
         <Box>
@@ -72,11 +72,11 @@ const NewUser = ({ setIsNew }: Props) => {
             }}
             label="パスワード確認"
             onKeyDown={onKeyDown}
-            inputProps={{ "data-testid": "loginPasswordConfirm" }}
+            inputProps={{ "data-testid": "NewUserPasswordConfirm" }}
           />
         </Box>
         {!!createUserError && (
-          <Typography sx={{ p: 1 }} color="error" data-testid="loginApiErr">
+          <Typography sx={{ p: 1 }} color="error" data-testid="NewUserApiErr">
             {createUserError ?? ""}
           </Typography>
         )}
