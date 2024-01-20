@@ -5,10 +5,13 @@ import { act, renderHook } from "@testing-library/react"
 import { myAxios } from "@/plugins/axios"
 import { useCreateUser } from "./"
 
+const renderFunc = () => {
+  return renderHook(() => useCreateUser())
+}
 jest.mock("@/plugins/axios")
 describe("useCreateUser", () => {
   it("何も入力せずに登録した場合", async () => {
-    const { result } = renderHook(() => useCreateUser())
+    const { result } = renderFunc()
     expect(result.current.nameError).toBe("")
     expect(result.current.emailError).toBe("")
     expect(result.current.passwordError).toBe("")
@@ -23,7 +26,7 @@ describe("useCreateUser", () => {
   })
 
   it("通信のテスト（成功）", async () => {
-    const { result } = renderHook(() => useCreateUser())
+    const { result } = renderFunc()
     await act(async () => {
       const axios: any = myAxios
       axios.mockResolvedValue(null)
@@ -33,7 +36,7 @@ describe("useCreateUser", () => {
   })
 
   it("通信のテスト（失敗）", async () => {
-    const { result } = renderHook(() => useCreateUser())
+    const { result } = renderFunc()
     await act(async () => {
       const axios: any = myAxios
       axios.mockRejectedValue(new Error("Async error message"))

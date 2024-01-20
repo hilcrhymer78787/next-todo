@@ -6,12 +6,15 @@ import { RecoilRoot } from "recoil"
 import { myAxios } from "@/plugins/axios"
 import { useReadUser } from "./"
 
+const renderFunc = () => {
+  return renderHook(() => useReadUser(), {
+    wrapper: RecoilRoot
+  })
+}
 jest.mock("@/plugins/axios")
 describe("useReadUser", () => {
   it("通信成功", async () => {
-    const { result } = renderHook(() => useReadUser(), {
-      wrapper: RecoilRoot
-    })
+    const { result } = renderFunc()
     expect(result.current.user).toBe(undefined)
     await act(async () => {
       const axios: any = myAxios
@@ -22,9 +25,7 @@ describe("useReadUser", () => {
   })
 
   it("通信失敗", async () => {
-    const { result } = renderHook(() => useReadUser(), {
-      wrapper: RecoilRoot
-    })
+    const { result } = renderFunc()
     expect(result.current.user).toBe(undefined)
     await act(async () => {
       const axios: any = myAxios
