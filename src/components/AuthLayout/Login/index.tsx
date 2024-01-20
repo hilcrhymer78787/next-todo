@@ -13,16 +13,19 @@ import {
 import LoadingButton from "@mui/lab/LoadingButton"
 import React from "react"
 import { useBasicAuth } from "@/data/user/useBasicAuth"
+import { useReadUser } from "@/data/user/useReadUser"
 
 type Props = {
   setIsNew: React.Dispatch<React.SetStateAction<boolean>>
 }
 const Login = ({ setIsNew }: Props) => {
   const { basicAuth, basicAuthError, emailError, passwordError, basicAuthLoading } = useBasicAuth()
+  const { readUser, readUserError, readUserLoading } = useReadUser()
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
   const submit = async () => {
-    await basicAuth(email, password)
+    const res = await basicAuth(email, password)
+    if (res) await readUser()
   }
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) submit()
