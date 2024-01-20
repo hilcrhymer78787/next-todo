@@ -1,14 +1,11 @@
-import { Box, Card, Typography } from "@mui/material"
-
-import AuthLayout from "@/layouts/AuthLayout"
-
+import { useEffect } from 'react'
+import { useRouter } from 'next/router';
 const Home = () => {
-  return (
-    <AuthLayout>
-      <Box sx={{ p: 5 }}>
-        <Typography>Home</Typography>
-      </Box>
-    </AuthLayout>
-  )
+  const router = useRouter();
+  useEffect(() => {
+    router.push('/tasks');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  return <></>
 }
 export default Home
