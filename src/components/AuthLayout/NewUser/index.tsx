@@ -87,6 +87,7 @@ const NewUser = ({ setIsNew }: Props) => {
           onClick={() => {
             setIsNew(false)
           }}
+          data-testid="NewUserToLogin"
         >
           ログイン画面へ
         </Button>
