@@ -16,6 +16,7 @@ import {
 } from "@mui/material"
 
 import Loading from "@/components/common/Loading"
+import ErrTxt from "@/components/common/ErrTxt"
 import { useReadTasks } from "@/data/task/useReadTasks"
 import IconButton from "@mui/material/IconButton"
 import AddIcon from "@mui/icons-material/Add"
@@ -35,9 +36,6 @@ const Tasks = () => {
       <Divider />
       <CardContent sx={{ p: "0 !important" }}>
         <TasksContent />
-        {/* {!!apiError && (
-          <Typography sx={{ p: 1 }} color="error" data-testid="TasksApiErr">{apiError}</Typography>
-        )} */}
       </CardContent>
     </Card>
   )
@@ -50,12 +48,7 @@ const TasksContent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   if (readTasksLoading) return <Loading />
-  if (readTasksError)
-    return (
-      <Typography sx={{ p: 1 }} color="error" data-testid="readTasksError">
-        {readTasksError}
-      </Typography>
-    )
+  if (readTasksError) return <ErrTxt txt={readTasksError} />
   if (!tasks) return <></>
   if (!tasks.length) return <Box sx={{ p: 5 }}>まだタスクはありません</Box>
   return (
@@ -68,9 +61,9 @@ const TasksContent = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {tasks.map((task, i) => (
+        {tasks.map((task) => (
           <TableRow
-            key={i.toString()}
+            key={task.id}
             onClick={() => {
               // navigate(`/task/read?taskId=${task.task_id}`);
             }}
