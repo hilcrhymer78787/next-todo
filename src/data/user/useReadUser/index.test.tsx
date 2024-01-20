@@ -13,6 +13,7 @@ const renderFunc = () => {
 }
 jest.mock("@/plugins/axios")
 describe("useReadUser", () => {
+
   it("通信成功", async () => {
     const { result } = renderFunc()
     expect(result.current.user).toBe(undefined)
@@ -40,4 +41,5 @@ describe("useReadUser", () => {
     })
     expect(result.current.user).toBe(null)
   })
+  
 })

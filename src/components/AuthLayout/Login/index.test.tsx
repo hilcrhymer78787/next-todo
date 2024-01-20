@@ -1,13 +1,11 @@
 import "@testing-library/jest-dom"
 
-import { act, renderHook, waitFor } from "@testing-library/react"
-import { fireEvent, render, screen } from "@testing-library/react"
+import { act } from "@testing-library/react"
+import { fireEvent, render } from "@testing-library/react"
 
 import Login from "./"
 import { RecoilRoot } from "recoil"
 import { myAxios } from "@/plugins/axios"
-
-jest.mock("@/plugins/axios")
 
 const renderFunc = () => {
   return render(
@@ -16,10 +14,10 @@ const renderFunc = () => {
     </RecoilRoot>
   )
 }
-
+jest.mock("@/plugins/axios")
 describe("TalkRoomListItem", () => {
   const { change, click } = fireEvent
-  
+
   it("コンポーネントが表示される", () => {
     const { getByTestId } = renderFunc()
     expect(getByTestId("Login")).toBeInTheDocument()
