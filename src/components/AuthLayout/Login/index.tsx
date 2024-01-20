@@ -1,15 +1,5 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Divider,
-  TextField,
-  Typography
-} from "@mui/material"
-import React, { useMemo } from "react"
+import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, Typography } from "@mui/material"
+import { useMemo, useState } from "react"
 
 import LoadingButton from "@mui/lab/LoadingButton"
 import { useBasicAuth } from "@/data/user/useBasicAuth"
@@ -27,8 +17,8 @@ const Login = ({ setIsNew }: Props) => {
     if (!!readUserError) return readUserError
     return ""
   }, [basicAuthError, readUserError])
-  const [email, setEmail] = React.useState("")
-  const [password, setPassword] = React.useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const submit = async () => {
     const res = await basicAuth(email, password)
     if (res) await readUser()
@@ -45,7 +35,9 @@ const Login = ({ setIsNew }: Props) => {
         <Box sx={{ mb: 2 }}>
           <TextField
             value={email}
-            onChange={(e) => { setEmail(e.target.value) }}
+            onChange={(e) => {
+              setEmail(e.target.value)
+            }}
             label="メールアドレス"
             error={!!emailError}
             helperText={<span data-testid="loginEmailErr">{emailError}</span>}
@@ -56,7 +48,9 @@ const Login = ({ setIsNew }: Props) => {
         <Box>
           <TextField
             value={password}
-            onChange={(e) => { setPassword(e.target.value) }}
+            onChange={(e) => {
+              setPassword(e.target.value)
+            }}
             label="パスワード"
             error={!!passwordError}
             helperText={<span data-testid="loginPasswordErr">{passwordError}</span>}
@@ -65,12 +59,18 @@ const Login = ({ setIsNew }: Props) => {
           />
         </Box>
         {!!apiError && (
-          <Typography sx={{ p: 1 }} color="error" data-testid="loginApiErr">{apiError}</Typography>
+          <Typography sx={{ p: 1 }} color="error" data-testid="loginApiErr">
+            {apiError}
+          </Typography>
         )}
       </CardContent>
       <Divider />
       <CardActions sx={{ justifyContent: "space-between" }}>
-        <Button onClick={() => { setIsNew(true) }}>
+        <Button
+          onClick={() => {
+            setIsNew(true)
+          }}
+        >
           新規登録画面へ
         </Button>
         <LoadingButton onClick={submit} loading={isLoading} data-testid="submitBtn" variant="contained">

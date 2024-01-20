@@ -25,7 +25,7 @@ describe("useBasicAuth", () => {
       axios.mockResolvedValue({ data: { token: "token123token123token123token123" } })
       await result.current.basicAuth("test@gmail.com", "password")
     })
-    expect(localStorage.getItem('token')).toBe('token123token123token123token123');
+    expect(localStorage.getItem("token")).toBe("token123token123token123token123")
     expect(result.current.basicAuthError).toBe("")
   })
 
@@ -37,7 +37,7 @@ describe("useBasicAuth", () => {
         response: {
           status: 500,
           statusText: "Internal Server Error",
-          data: { errorMessage: "パスワードが違います" },
+          data: { errorMessage: "パスワードが違います" }
         }
       })
       await result.current.basicAuth("test@gmail.com", "hogehoge")

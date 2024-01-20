@@ -1,28 +1,18 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Divider,
-  TextField,
-  Typography
-} from "@mui/material"
+import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, Typography } from "@mui/material"
 
 import LoadingButton from "@mui/lab/LoadingButton"
-import React from "react"
 import { useCreateUser } from "@/data/user/useCreateUser/index"
+import { useState } from "react"
 
 type Props = {
   setIsNew: React.Dispatch<React.SetStateAction<boolean>>
 }
 const NewUser = ({ setIsNew }: Props) => {
   const { createUser, createUserError, nameError, emailError, passwordError, createUserLoading } = useCreateUser()
-  const [name, setName] = React.useState("")
-  const [email, setEmail] = React.useState("")
-  const [password, setPassword] = React.useState("")
-  const [passwordConfirm, setPasswordConfirm] = React.useState("")
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [passwordConfirm, setPasswordConfirm] = useState("")
   const submit = async () => {
     await createUser(name, email, password, passwordConfirm)
   }
@@ -38,7 +28,9 @@ const NewUser = ({ setIsNew }: Props) => {
         <Box>
           <TextField
             value={name}
-            onChange={(e) => { setName(e.target.value) }}
+            onChange={(e) => {
+              setName(e.target.value)
+            }}
             label="名前"
             error={!!nameError}
             helperText={<span data-testid="loginNameErr">{nameError}</span>}
@@ -49,7 +41,9 @@ const NewUser = ({ setIsNew }: Props) => {
         <Box>
           <TextField
             value={email}
-            onChange={(e) => { setEmail(e.target.value) }}
+            onChange={(e) => {
+              setEmail(e.target.value)
+            }}
             label="メールアドレス"
             error={!!emailError}
             helperText={<span data-testid="loginEmailErr">{emailError}</span>}
@@ -60,7 +54,9 @@ const NewUser = ({ setIsNew }: Props) => {
         <Box>
           <TextField
             value={password}
-            onChange={(e) => { setPassword(e.target.value) }}
+            onChange={(e) => {
+              setPassword(e.target.value)
+            }}
             label="パスワード"
             error={!!passwordError}
             helperText={<span data-testid="loginPasswordErr">{passwordError}</span>}
@@ -71,7 +67,9 @@ const NewUser = ({ setIsNew }: Props) => {
         <Box>
           <TextField
             value={passwordConfirm}
-            onChange={(e) => { setPasswordConfirm(e.target.value) }}
+            onChange={(e) => {
+              setPasswordConfirm(e.target.value)
+            }}
             label="パスワード確認"
             onKeyDown={onKeyDown}
             inputProps={{ "data-testid": "loginPasswordConfirm" }}
@@ -85,7 +83,11 @@ const NewUser = ({ setIsNew }: Props) => {
       </CardContent>
       <Divider />
       <CardActions sx={{ justifyContent: "space-between" }}>
-        <Button onClick={() => { setIsNew(false) }}>
+        <Button
+          onClick={() => {
+            setIsNew(false)
+          }}
+        >
           ログイン画面へ
         </Button>
         <LoadingButton onClick={submit} loading={createUserLoading} data-testid="submitBtn" variant="contained">

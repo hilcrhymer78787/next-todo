@@ -1,8 +1,8 @@
 import { atom, useRecoilState } from "recoil"
 
-import React from "react"
 import { errHandler } from "@/data/common"
 import { myAxios } from "@/plugins/axios"
+import { useState } from "react"
 
 type User = {
   name: string
@@ -13,8 +13,8 @@ export const userAtom = atom<User | null | undefined>({
   default: undefined
 })
 export const useReadUser = () => {
-  const [readUserLoading, setReadUserLoading] = React.useState(false)
-  const [readUserError, setReadUserError] = React.useState("")
+  const [readUserLoading, setReadUserLoading] = useState(false)
+  const [readUserError, setReadUserError] = useState("")
   const [user, setUser] = useRecoilState(userAtom)
   const readUser = async () => {
     setReadUserError("")

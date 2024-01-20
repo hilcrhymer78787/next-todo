@@ -4,17 +4,17 @@ import { act, renderHook, waitFor } from "@testing-library/react"
 import { fireEvent, render, screen } from "@testing-library/react"
 
 import Login from "./"
-import { RecoilRoot } from 'recoil';
+import { RecoilRoot } from "recoil"
 import { myAxios } from "@/plugins/axios"
 
 jest.mock("@/plugins/axios")
 
-const renderFunc =()=>{
+const renderFunc = () => {
   return render(
     <RecoilRoot>
       <Login setIsNew={jest.fn()} />
     </RecoilRoot>
-  );
+  )
 }
 
 describe("TalkRoomListItem", () => {
@@ -80,7 +80,7 @@ describe("TalkRoomListItem", () => {
         axios.mockResolvedValue({ data: { token: "token123token123token123token123" } })
         click(getByTestId("submitBtn"))
       })
-      expect(localStorage.getItem('token')).toBe('token123token123token123token123');
+      expect(localStorage.getItem("token")).toBe("token123token123token123token123")
       expect(queryByTestId("loginApiErr")).toBeNull()
     })
 
@@ -95,7 +95,7 @@ describe("TalkRoomListItem", () => {
           response: {
             status: 500,
             statusText: "Internal Server Error",
-            data: { errorMessage: "パスワードが違います" },
+            data: { errorMessage: "パスワードが違います" }
           }
         })
         click(getByTestId("submitBtn"))

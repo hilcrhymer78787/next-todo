@@ -1,6 +1,6 @@
 import { Box, Card, Typography } from "@mui/material"
 
-import AuthLayout from '@/layouts/AuthLayout'
+import AuthLayout from "@/layouts/AuthLayout"
 
 const Home = () => {
   return (

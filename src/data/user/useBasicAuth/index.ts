@@ -1,11 +1,11 @@
-import React from "react"
 import { errHandler } from "@/data/common"
 import { myAxios } from "@/plugins/axios"
+import { useState } from "react"
 export const useBasicAuth = () => {
-  const [basicAuthLoading, setBasicAuthLoading] = React.useState(false)
-  const [basicAuthError, setBasicAuthError] = React.useState("")
-  const [emailError, setEmailError] = React.useState("")
-  const [passwordError, setPasswordError] = React.useState("")
+  const [basicAuthLoading, setBasicAuthLoading] = useState(false)
+  const [basicAuthError, setBasicAuthError] = useState("")
+  const [emailError, setEmailError] = useState("")
+  const [passwordError, setPasswordError] = useState("")
   const basicAuth = async (email: string, password: string) => {
     setBasicAuthError("")
     setEmailError("")

@@ -1,11 +1,11 @@
-import React from "react"
 import { myAxios } from "@/plugins/axios"
+import { useState } from "react"
 export const useCreateUser = () => {
-  const [createUserLoading, setCreateUserLoading] = React.useState(false)
-  const [createUserError, setCreateUserError] = React.useState("")
-  const [emailError, setEmailError] = React.useState("")
-  const [nameError, setNameError] = React.useState("")
-  const [passwordError, setPasswordError] = React.useState("")
+  const [createUserLoading, setCreateUserLoading] = useState(false)
+  const [createUserError, setCreateUserError] = useState("")
+  const [emailError, setEmailError] = useState("")
+  const [nameError, setNameError] = useState("")
+  const [passwordError, setPasswordError] = useState("")
   const createUser = async (name: string, email: string, password: string, passwordConfirm: string) => {
     setCreateUserError("")
     setNameError("")
