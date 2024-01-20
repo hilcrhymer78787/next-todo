@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
-import { useRouter } from 'next/router';
+import { useEffect } from "react"
+import { useRouter } from "next/router"
 const Home = () => {
-  const router = useRouter();
+  const router = useRouter()
   useEffect(() => {
-    router.push('/tasks');
+    router.push("/tasks")
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return <></>

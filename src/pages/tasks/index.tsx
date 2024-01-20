@@ -1,38 +1,91 @@
-import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextField, Typography } from "@mui/material"
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Divider,
+  TextField,
+  Typography,
+  Table,
+  TableHead,
+  TableBody,
+  TableCell,
+  TableRow
+} from "@mui/material"
 
-import LoadingButton from "@mui/lab/LoadingButton"
-import { useCreateUser } from "@/data/user/useCreateUser/index"
-import { useState, useMemo } from "react"
+import Loading from "@/components/common/Loading"
 import { useReadTasks } from "@/data/task/useReadTasks"
-import IconButton from '@mui/material/IconButton';
-import AddIcon from '@mui/icons-material/Add';
-import { useEffect } from 'react'
+import IconButton from "@mui/material/IconButton"
+import AddIcon from "@mui/icons-material/Add"
+import { useEffect } from "react"
 
 const Tasks = () => {
-  const { tasks, readTasks } = useReadTasks()
-  const apiError = null
-  useEffect(() => {
-    readTasks()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
   return (
     <Card sx={{ m: 5 }} data-testid="Tasks">
       <CardHeader
         title="タスク"
         action={
-          <IconButton onClick={() => { }}>
+          <IconButton onClick={() => {}}>
             <AddIcon />
           </IconButton>
         }
       />
       <Divider />
-      <CardContent sx={{ p: 0 }}>
-        <pre>{JSON.stringify(tasks, null, 4)}</pre>
+      <CardContent sx={{ p: "0 !important" }}>
+        <TasksContent />
         {/* {!!apiError && (
           <Typography sx={{ p: 1 }} color="error" data-testid="TasksApiErr">{apiError}</Typography>
         )} */}
       </CardContent>
     </Card>
+  )
+}
+
+const TasksContent = () => {
+  const { tasks, readTasks, readTasksLoading, readTasksError } = useReadTasks()
+  useEffect(() => {
+    readTasks()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  if (readTasksLoading) return <Loading />
+  if (readTasksError)
+    return (
+      <Typography sx={{ p: 1 }} color="error" data-testid="readTasksError">
+        {readTasksError}
+      </Typography>
+    )
+  if (!tasks) return <></>
+  if (!tasks.length) return <Box sx={{ p: 5 }}>まだタスクはありません</Box>
+  return (
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>ID</TableCell>
+          <TableCell>タスク名</TableCell>
+          <TableCell></TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {tasks.map((task, i) => (
+          <TableRow
+            key={i.toString()}
+            onClick={() => {
+              // navigate(`/task/read?taskId=${task.task_id}`);
+            }}
+            sx={{
+              ":hover": { backgroundColor: "grey.200" },
+              cursor: "pointer"
+            }}
+          >
+            <TableCell>{task.id}</TableCell>
+            <TableCell>{task.name}</TableCell>
+            <TableCell>{task.isDone ? "済" : "未"}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   )
 }
 export default Tasks

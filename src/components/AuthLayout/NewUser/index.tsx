@@ -85,7 +85,9 @@ const NewUser = ({ setIsNew }: Props) => {
           />
         </Box>
         {!!apiError && (
-          <Typography sx={{ p: 1 }} color="error" data-testid="NewUserApiErr">{apiError}</Typography>
+          <Typography sx={{ p: 1 }} color="error" data-testid="NewUserApiErr">
+            {apiError}
+          </Typography>
         )}
       </CardContent>
       <Divider />

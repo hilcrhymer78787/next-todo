@@ -44,5 +44,4 @@ describe("useReadUser", () => {
   //   })
   //   expect(result.current.user).toBe(null)
   // })
-
 })
