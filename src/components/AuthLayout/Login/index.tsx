@@ -9,9 +9,9 @@ import {
   TextField,
   Typography
 } from "@mui/material"
+import React, { useMemo } from "react"
 
 import LoadingButton from "@mui/lab/LoadingButton"
-import React from "react"
 import { useBasicAuth } from "@/data/user/useBasicAuth"
 import { useReadUser } from "@/data/user/useReadUser"
 
@@ -20,12 +20,18 @@ type Props = {
 }
 const Login = ({ setIsNew }: Props) => {
   const { basicAuth, basicAuthError, emailError, passwordError, basicAuthLoading } = useBasicAuth()
-  // const { readUser, readUserError, readUserLoading } = useReadUser()
+  const { readUser, readUserError, readUserLoading } = useReadUser()
+  const isLoading = useMemo(() => basicAuthLoading || readUserLoading, [basicAuthLoading, readUserLoading])
+  const apiError = useMemo(() => {
+    if (!!basicAuthError) return basicAuthError
+    if (!!readUserError) return readUserError
+    return ""
+  }, [basicAuthError, readUserError])
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
   const submit = async () => {
     const res = await basicAuth(email, password)
-    // if (res) await readUser()
+    if (res) await readUser()
   }
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) submit()
@@ -58,10 +64,8 @@ const Login = ({ setIsNew }: Props) => {
             inputProps={{ "data-testid": "loginPassword" }}
           />
         </Box>
-        {!!basicAuthError && (
-          <Typography sx={{ p: 1 }} color="error" data-testid="loginApiErr">
-            {basicAuthError ?? ""}
-          </Typography>
+        {!!apiError && (
+          <Typography sx={{ p: 1 }} color="error" data-testid="loginApiErr">{apiError}</Typography>
         )}
       </CardContent>
       <Divider />
@@ -69,7 +73,7 @@ const Login = ({ setIsNew }: Props) => {
         <Button onClick={() => { setIsNew(true) }}>
           新規登録画面へ
         </Button>
-        <LoadingButton onClick={submit} loading={basicAuthLoading} data-testid="submitBtn" variant="contained">
+        <LoadingButton onClick={submit} loading={isLoading} data-testid="submitBtn" variant="contained">
           登録
         </LoadingButton>
       </CardActions>
