@@ -1,13 +1,18 @@
 import "@testing-library/jest-dom"
 
 import { fireEvent, render } from "@testing-library/react"
+import { RecoilRoot } from "recoil"
 
 import NewUser from "./"
 import { act } from "@testing-library/react"
 import { myAxios } from "@/plugins/axios"
 
 const renderFunc = () => {
-  return render(<NewUser setIsNew={jest.fn()} />)
+  return render(
+    <RecoilRoot>
+      <NewUser setIsNew={jest.fn()} />
+    </RecoilRoot>
+  )
 }
 jest.mock("@/plugins/axios")
 describe("TalkRoomListItem", () => {
@@ -96,7 +101,8 @@ describe("TalkRoomListItem", () => {
       change(getByTestId("NewUserPassword"), { target: { value: "hogehoge" } })
       change(getByTestId("NewUserPasswordConfirm"), { target: { value: "hogehoge" } })
       await act(async () => {
-        ;(myAxios as any).mockResolvedValue(null)
+        const axios: any = myAxios
+        axios.mockResolvedValue({ data: { token: "token123token123token123token123" } })
         click(getByTestId("submitBtn"))
       })
       expect(queryByTestId("NewUserApiErr")).toBeNull()

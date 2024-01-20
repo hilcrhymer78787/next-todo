@@ -29,9 +29,10 @@ describe("useCreateUser", () => {
     const { result } = renderFunc()
     await act(async () => {
       const axios: any = myAxios
-      axios.mockResolvedValue(null)
+      axios.mockResolvedValue({ data: { token: "token123token123token123token123" } })
       await result.current.createUser("John Doe", "john@example.com", "password123", "password123")
     })
+    expect(localStorage.getItem("token")).toBe("token123token123token123token123")
     expect(result.current.nameError).toBe("")
     expect(result.current.emailError).toBe("")
     expect(result.current.passwordError).toBe("")

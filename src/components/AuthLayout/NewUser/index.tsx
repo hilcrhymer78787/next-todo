@@ -2,19 +2,28 @@ import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, TextF
 
 import LoadingButton from "@mui/lab/LoadingButton"
 import { useCreateUser } from "@/data/user/useCreateUser/index"
-import { useState } from "react"
+import { useState, useMemo } from "react"
+import { useReadUser } from "@/data/user/useReadUser"
 
 type Props = {
   setIsNew: React.Dispatch<React.SetStateAction<boolean>>
 }
 const NewUser = ({ setIsNew }: Props) => {
   const { createUser, createUserError, nameError, emailError, passwordError, createUserLoading } = useCreateUser()
+  const { readUser, readUserError, readUserLoading } = useReadUser()
+  const isLoading = useMemo(() => createUserLoading || readUserLoading, [createUserLoading, readUserLoading])
+  const apiError = useMemo(() => {
+    if (!!createUserError) return createUserError
+    if (!!readUserError) return readUserError
+    return ""
+  }, [createUserError, readUserError])
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [passwordConfirm, setPasswordConfirm] = useState("")
   const submit = async () => {
-    await createUser(name, email, password, passwordConfirm)
+    const res = await createUser(name, email, password, passwordConfirm)
+    if (res) await readUser()
   }
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) submit()
@@ -75,10 +84,8 @@ const NewUser = ({ setIsNew }: Props) => {
             inputProps={{ "data-testid": "NewUserPasswordConfirm" }}
           />
         </Box>
-        {!!createUserError && (
-          <Typography sx={{ p: 1 }} color="error" data-testid="NewUserApiErr">
-            {createUserError ?? ""}
-          </Typography>
+        {!!apiError && (
+          <Typography sx={{ p: 1 }} color="error" data-testid="NewUserApiErr">{apiError}</Typography>
         )}
       </CardContent>
       <Divider />
@@ -91,7 +98,7 @@ const NewUser = ({ setIsNew }: Props) => {
         >
           ログイン画面へ
         </Button>
-        <LoadingButton onClick={submit} loading={createUserLoading} data-testid="submitBtn" variant="contained">
+        <LoadingButton onClick={submit} loading={isLoading} data-testid="submitBtn" variant="contained">
           登録
         </LoadingButton>
       </CardActions>

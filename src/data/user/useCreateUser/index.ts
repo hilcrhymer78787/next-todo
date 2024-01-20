@@ -37,6 +37,7 @@ export const useCreateUser = () => {
     }
     return myAxios(requestConfig)
       .then((res) => {
+        localStorage.setItem("token", res.data.token)
         return res
       })
       .catch(() => {
