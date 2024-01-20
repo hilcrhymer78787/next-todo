@@ -1,4 +1,5 @@
 import React from "react"
+import { errHandler } from "@/data/common"
 import { myAxios } from "@/plugins/axios"
 export const useBasicAuth = () => {
   const [basicAuthLoading, setBasicAuthLoading] = React.useState(false)
@@ -31,9 +32,7 @@ export const useBasicAuth = () => {
         return res
       })
       .catch((err) => {
-        const errorMessage = err?.response?.data?.errorMessage
-        const errorStatusText = `${err?.response?.status}：${err?.response?.statusText}`
-        setBasicAuthError(errorMessage ?? errorStatusText)
+        errHandler(err, setBasicAuthError)
       })
       .finally(() => {
         setBasicAuthLoading(false)

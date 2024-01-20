@@ -1,16 +1,17 @@
 import { atom, useRecoilState } from "recoil"
 
 import React from "react"
+import { errHandler } from "@/data/common"
 import { myAxios } from "@/plugins/axios"
 
-export const userAtom = atom<User | null>({
-  key: "user",
-  default: null
-})
 type User = {
   name: string
   email: string
 }
+export const userAtom = atom<User | null>({
+  key: "user",
+  default: null
+})
 export const useReadUser = () => {
   const [readUserLoading, setReadUserLoading] = React.useState(false)
   const [readUserError, setReadUserError] = React.useState("")
@@ -28,9 +29,7 @@ export const useReadUser = () => {
         return res
       })
       .catch((err) => {
-        const errorMessage = err?.response?.data?.errorMessage
-        const errorStatusText = `${err?.response?.status}：${err?.response?.statusText}`
-        setReadUserError(errorMessage ?? errorStatusText)
+        errHandler(err, setReadUserError)
       })
       .finally(() => {
         setReadUserLoading(false)
