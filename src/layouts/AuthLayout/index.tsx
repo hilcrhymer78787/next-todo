@@ -9,7 +9,8 @@ type Props = {
   children: React.ReactNode
 }
 const AuthLayout = ({ children }: Props) => {
-  const { user } = useReadUser()
+  const user = null
+  // const { user } = useReadUser()
   return (
     <>
       <Container>

@@ -1,15 +1,26 @@
+import { atom, useRecoilState } from "recoil"
+
 import React from "react"
 import { myAxios } from "@/plugins/axios"
+
+export const userAtom = atom<User | null>({
+  key: "user",
+  default: null
+})
+type User = {
+  name: string
+  email: string
+}
 export const useReadUser = () => {
   const [readUserLoading, setReadUserLoading] = React.useState(false)
   const [readUserError, setReadUserError] = React.useState("")
-  const [user, setUser] = React.useState(null)
+  const [user, setUser] = useRecoilState(userAtom)
   const readUser = async () => {
     setReadUserError("")
     setReadUserLoading(true)
     const requestConfig = {
       url: "/user/read",
-      method: "GET",
+      method: "GET"
     }
     return myAxios(requestConfig)
       .then((res) => {

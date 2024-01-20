@@ -20,12 +20,12 @@ type Props = {
 }
 const Login = ({ setIsNew }: Props) => {
   const { basicAuth, basicAuthError, emailError, passwordError, basicAuthLoading } = useBasicAuth()
-  const { readUser, readUserError, readUserLoading } = useReadUser()
+  // const { readUser, readUserError, readUserLoading } = useReadUser()
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
   const submit = async () => {
     const res = await basicAuth(email, password)
-    if (res) await readUser()
+    // if (res) await readUser()
   }
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) submit()
