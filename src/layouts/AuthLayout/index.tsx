@@ -14,20 +14,18 @@ const AuthLayout = ({ children }: Props) => {
     readUser()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  if (user === undefined) return <></>
   if (readUserLoading) return <></>
   return (
-    <>
-      <Container>
-        {!!user && (
-          <>
-            {/* <Header /> */}
-            {children}
-          </>
-        )}
-        {!user && <Auth />}
-      </Container>
-      <pre>{JSON.stringify(user, null, 4)}</pre>
-    </>
+    <Container>
+      {!!user && (
+        <>
+          {/* <Header /> */}
+          {children}
+        </>
+      )}
+      {!user && <Auth />}
+    </Container>
   )
 }
 export default AuthLayout

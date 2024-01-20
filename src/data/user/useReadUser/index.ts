@@ -8,9 +8,9 @@ type User = {
   name: string
   email: string
 }
-export const userAtom = atom<User | null>({
+export const userAtom = atom<User | null | undefined>({
   key: "user",
-  default: null
+  default: undefined
 })
 export const useReadUser = () => {
   const [readUserLoading, setReadUserLoading] = React.useState(false)
@@ -29,6 +29,7 @@ export const useReadUser = () => {
         return res
       })
       .catch((err) => {
+        setUser(null)
         errHandler(err, setReadUserError)
       })
       .finally(() => {
