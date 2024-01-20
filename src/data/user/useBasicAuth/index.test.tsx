@@ -22,9 +22,10 @@ describe("useBasicAuth", () => {
     const { result } = renderHook(() => useBasicAuth())
     await act(async () => {
       const axios: any = myAxios
-      axios.mockResolvedValue(null)
+      axios.mockResolvedValue({ data: { token: "token123token123token123token123" } })
       await result.current.basicAuth("test@gmail.com", "password")
     })
+    expect(localStorage.getItem('token')).toBe('token123token123token123token123');
     expect(result.current.basicAuthError).toBe("")
   })
 

@@ -27,6 +27,7 @@ export const useBasicAuth = () => {
     }
     return myAxios(requestConfig)
       .then((res) => {
+        localStorage.setItem("token", res.data.token)
         return res
       })
       .catch((err) => {

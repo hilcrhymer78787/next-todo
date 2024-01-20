@@ -68,9 +68,10 @@ describe("TalkRoomListItem", () => {
       change(getByTestId("loginPassword"), { target: { value: "password" } })
       await act(async () => {
         const axios: any = myAxios
-        axios.mockResolvedValue({ token: "token123token123token123token123" })
+        axios.mockResolvedValue({ data: { token: "token123token123token123token123" } })
         click(getByTestId("submitBtn"))
       })
+      expect(localStorage.getItem('token')).toBe('token123token123token123token123');
       expect(queryByTestId("loginApiErr")).toBeNull()
     })
 
