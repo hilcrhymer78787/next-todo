@@ -2,7 +2,7 @@ import "@testing-library/jest-dom"
 
 import { render, act } from "@testing-library/react"
 
-import TaskDetailContent from "./"
+import TaskReadContent from "./"
 import { mockTasks } from "@/pages/api/task/readall"
 import { RecoilRoot } from "recoil"
 import { myAxios } from "@/plugins/axios"
@@ -19,11 +19,11 @@ jest.mock("next/router", () => ({
 const renderFunc = () => {
   return render(
     <RecoilRoot>
-      <TaskDetailContent />
+      <TaskReadContent />
     </RecoilRoot>
   )
 }
-describe("TaskDetailContent", () => {
+describe("TaskReadContent", () => {
   test("タスクが表示される", async () => {
     const { getByText } = await act(async () => {
       const axios: any = myAxios

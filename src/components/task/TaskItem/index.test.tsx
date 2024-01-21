@@ -5,11 +5,16 @@ import { Table, TableBody } from "@mui/material"
 
 import TaskItem from "./"
 import { mockTasks } from "@/pages/api/task/readall"
-import { useRouter } from "next/router"
 
 jest.mock("@/plugins/axios")
+
+const push = jest.fn()
 jest.mock("next/router", () => ({
-  useRouter: jest.fn()
+  useRouter: () => {
+    return {
+      push
+    }
+  }
 }))
 
 const renderFunc = () => {
@@ -31,13 +36,8 @@ describe("TaskItem", () => {
   })
 
   test("クリックしたらページ遷移する", () => {
-    const pushMock = jest.fn()
-    //@ts-ignore
-    useRouter.mockReturnValue({
-      push: pushMock
-    })
     const { getByTestId } = renderFunc()
     click(getByTestId("TaskItem-0"))
-    expect(pushMock).toHaveBeenCalledWith("/task/read?taskId=1")
+    expect(push).toHaveBeenCalledWith("/task/read?taskId=1")
   })
 })

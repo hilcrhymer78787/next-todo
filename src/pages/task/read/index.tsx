@@ -1,14 +1,10 @@
 import { Card, CardContent, CardHeader, Divider, Table, TableBody, TableRow, TableCell } from "@mui/material"
 
 import IconButton from "@mui/material/IconButton"
-import AddIcon from "@mui/icons-material/Add"
-import TasksContent from "@/components/task/TasksContent"
 import AuthLayout from "@/layouts/AuthLayout"
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn"
 import { useRouter } from "next/router"
-import { useEffect } from "react"
-import { useReadTask } from "@/data/task/useReadTask"
-import TaskDetailContent from "@/components/task/TaskDetailContent"
+import TaskReadContent from "@/components/task/TaskReadContent"
 
 const TaskRead = () => {
   const router = useRouter()
@@ -28,7 +24,7 @@ const TaskRead = () => {
         />
         <Divider />
         <CardContent sx={{ p: "0 !important" }}>
-          <TaskDetailContent />
+          <TaskReadContent />
         </CardContent>
       </Card>
     </AuthLayout>

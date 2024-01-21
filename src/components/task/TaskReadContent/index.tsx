@@ -9,7 +9,7 @@ import TaskItem from "@/components/task/TaskItem"
 import { useRouter } from "next/router"
 import { useReadTask } from "@/data/task/useReadTask"
 
-const TaskDetailContent = () => {
+const TaskReadContent = () => {
   const router = useRouter()
   const { task, readTask, readTaskError, readTaskLoading } = useReadTask()
   useEffect(() => {
@@ -44,4 +44,4 @@ const TaskDetailContent = () => {
     </Table>
   )
 }
-export default TaskDetailContent
+export default TaskReadContent
