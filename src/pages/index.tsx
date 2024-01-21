@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 const Home = () => {
   const router = useRouter()
   useEffect(() => {
-    router.push("/tasks")
+    router.push("/task")
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return <></>

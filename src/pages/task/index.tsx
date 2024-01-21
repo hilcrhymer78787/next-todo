@@ -1,13 +1,8 @@
 import {
-  Box,
-  Button,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
   Divider,
-  TextField,
-  Typography,
   Table,
   TableHead,
   TableBody,
@@ -17,6 +12,7 @@ import {
 
 import Loading from "@/components/common/Loading"
 import ErrTxt from "@/components/common/ErrTxt"
+import NoData from "@/components/common/NoData"
 import { useReadTasks } from "@/data/task/useReadTasks"
 import IconButton from "@mui/material/IconButton"
 import AddIcon from "@mui/icons-material/Add"
@@ -28,7 +24,7 @@ const Tasks = () => {
       <CardHeader
         title="タスク"
         action={
-          <IconButton onClick={() => {}}>
+          <IconButton onClick={() => { }}>
             <AddIcon />
           </IconButton>
         }
@@ -50,7 +46,7 @@ const TasksContent = () => {
   if (readTasksLoading) return <Loading />
   if (readTasksError) return <ErrTxt txt={readTasksError} />
   if (!tasks) return <></>
-  if (!tasks.length) return <Box sx={{ p: 5 }}>まだタスクはありません</Box>
+  if (!tasks.length) return <NoData txt="まだタスクはありません" />
   return (
     <Table>
       <TableHead>
