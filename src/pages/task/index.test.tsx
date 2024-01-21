@@ -8,7 +8,12 @@ import { useRouter } from "next/router"
 import { RecoilRoot } from "recoil"
 import { myAxios } from "@/plugins/axios"
 
+
 jest.mock("@/plugins/axios")
+jest.mock("next/router", () => ({
+  useRouter: jest.fn()
+}))
+
 const renderFunc = () => {
   return render(
     <RecoilRoot>
@@ -16,27 +21,43 @@ const renderFunc = () => {
     </RecoilRoot>
   )
 }
-
-jest.mock("next/router", () => ({
-  useRouter: jest.fn()
-}))
-
 describe("Tasks", () => {
-  test("コンポーネントが表示される", async () => {
-    expect("Tasks").toBe("Tasks")
+  test("タスク一覧が表示される", async () => {
+    const { getByTestId, getByText } = await act(async() => {
+      const axios: any = myAxios
+      axios.mockResolvedValueOnce({ data: { name: "Yamada Tetsuto", email: "test@gmail.com" } })
+      axios.mockResolvedValueOnce({ data: mockTasks })
+      return renderFunc()
+    })
+    expect(getByTestId("Tasks")).toBeInTheDocument()
+    expect(getByText("掃除")).toBeInTheDocument()
   })
 
-  // const { click } = fireEvent
+  test("「まだタスクはありません」が表示される", async() => {
+    const { getByText } = await act(async() => {
+      const axios: any = myAxios
+      axios.mockResolvedValueOnce({ data: { name: "Yamada Tetsuto", email: "test@gmail.com" } })
+      axios.mockResolvedValueOnce({ data: [] })
+      return renderFunc()
+    })
+    expect(getByText("まだタスクはありません")).toBeInTheDocument()
+  })
 
-  // test("コンポーネントが表示される", async() => {
-  //   await act(async () => {
-  //     const axios: any = myAxios
-  //     axios.mockResolvedValue({ data: { token: "token123token123token123token123" } })
-  //   })
-  //   screen.debug()
-  //   const { getByTestId } = renderFunc()
-  //   expect(getByTestId("Tasks")).toBeInTheDocument()
-  // })
+  test("「通信に失敗しました」が表示される", async() => {
+    const { getByText } = await act(async() => {
+      const axios: any = myAxios
+      axios.mockResolvedValueOnce({ data: { name: "Yamada Tetsuto", email: "test@gmail.com" } })
+      axios.mockRejectedValue({
+        response: {
+          status: 500,
+          statusText: "Internal Server Error",
+          data: { errorMessage: "通信に失敗しました" }
+        }
+      })
+      return renderFunc()
+    })
+    expect(getByText("通信に失敗しました")).toBeInTheDocument()
+  })
 
   // test('クリックしたらページ遷移する', () => {
   //   const pushMock = jest.fn()

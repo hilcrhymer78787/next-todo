@@ -14,6 +14,7 @@ const renderFunc = () => {
     </RecoilRoot>
   )
 }
+
 describe("AuthLayout", () => {
   test("ユーザー情報が取得できたらコンポーネントが表示される", async () => {
     const { getByText } = await act(async () => {

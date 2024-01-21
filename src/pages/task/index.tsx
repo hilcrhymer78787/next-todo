@@ -8,17 +8,16 @@ import { useRouter } from "next/router"
 
 const Tasks = () => {
   const router = useRouter()
+  const onClickAdd =() => {
+    router.push("/task/create")
+  }
   return (
     <AuthLayout>
       <Card data-testid="Tasks">
         <CardHeader
           title="タスク"
           action={
-            <IconButton
-              onClick={() => {
-                router.push("/task/create")
-              }}
-            >
+            <IconButton onClick={onClickAdd}>
               <AddIcon />
             </IconButton>
           }
