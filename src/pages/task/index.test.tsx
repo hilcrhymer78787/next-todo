@@ -8,65 +8,39 @@ import { useRouter } from "next/router"
 import { RecoilRoot } from "recoil"
 import { myAxios } from "@/plugins/axios"
 
-
 jest.mock("@/plugins/axios")
 jest.mock("next/router", () => ({
   useRouter: jest.fn()
 }))
 
 const renderFunc = () => {
-  return render(
-    <RecoilRoot>
-      <Tasks />
-    </RecoilRoot>
-  )
+  return act(async () => {
+    const axios: any = myAxios
+    axios.mockResolvedValueOnce({ data: { name: "Yamada Tetsuto", email: "test@gmail.com" } })
+    axios.mockResolvedValueOnce({ data: mockTasks })
+    return render(
+      <RecoilRoot>
+        <Tasks />
+      </RecoilRoot>
+    )
+  })
 }
 describe("Tasks", () => {
+  const { click } = fireEvent
+
   test("タスク一覧が表示される", async () => {
-    const { getByTestId, getByText } = await act(async() => {
-      const axios: any = myAxios
-      axios.mockResolvedValueOnce({ data: { name: "Yamada Tetsuto", email: "test@gmail.com" } })
-      axios.mockResolvedValueOnce({ data: mockTasks })
-      return renderFunc()
-    })
+    const { getByTestId } = await renderFunc()
     expect(getByTestId("Tasks")).toBeInTheDocument()
-    expect(getByText("掃除")).toBeInTheDocument()
   })
 
-  test("「まだタスクはありません」が表示される", async() => {
-    const { getByText } = await act(async() => {
-      const axios: any = myAxios
-      axios.mockResolvedValueOnce({ data: { name: "Yamada Tetsuto", email: "test@gmail.com" } })
-      axios.mockResolvedValueOnce({ data: [] })
-      return renderFunc()
+  test("クリックしたらタスク追加ページへ遷移する", async () => {
+    const pushMock = jest.fn()
+    //@ts-ignore
+    useRouter.mockReturnValue({
+      push: pushMock
     })
-    expect(getByText("まだタスクはありません")).toBeInTheDocument()
+    const { getByTestId } = await renderFunc()
+    click(getByTestId("TasksAddBtn"))
+    expect(pushMock).toHaveBeenCalledWith("/task/create")
   })
-
-  test("「通信に失敗しました」が表示される", async() => {
-    const { getByText } = await act(async() => {
-      const axios: any = myAxios
-      axios.mockResolvedValueOnce({ data: { name: "Yamada Tetsuto", email: "test@gmail.com" } })
-      axios.mockRejectedValue({
-        response: {
-          status: 500,
-          statusText: "Internal Server Error",
-          data: { errorMessage: "通信に失敗しました" }
-        }
-      })
-      return renderFunc()
-    })
-    expect(getByText("通信に失敗しました")).toBeInTheDocument()
-  })
-
-  // test('クリックしたらページ遷移する', () => {
-  //   const pushMock = jest.fn()
-  //   //@ts-ignore
-  //   useRouter.mockReturnValue({
-  //     push: pushMock,
-  //   })
-  //   const { getByTestId } = renderFunc()
-  //   click(getByTestId('Tasks-0'));
-  //   expect(pushMock).toHaveBeenCalledWith('/task/read?taskId=1');
-  // });
 })

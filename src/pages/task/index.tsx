@@ -8,7 +8,7 @@ import { useRouter } from "next/router"
 
 const Tasks = () => {
   const router = useRouter()
-  const onClickAdd =() => {
+  const onClickAdd = () => {
     router.push("/task/create")
   }
   return (
@@ -17,7 +17,7 @@ const Tasks = () => {
         <CardHeader
           title="タスク"
           action={
-            <IconButton onClick={onClickAdd}>
+            <IconButton onClick={onClickAdd} data-testid="TasksAddBtn">
               <AddIcon />
             </IconButton>
           }

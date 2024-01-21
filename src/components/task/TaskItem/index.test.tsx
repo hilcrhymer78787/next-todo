@@ -8,6 +8,10 @@ import { mockTasks } from "@/pages/api/task/readall"
 import { useRouter } from "next/router"
 
 jest.mock("@/plugins/axios")
+jest.mock("next/router", () => ({
+  useRouter: jest.fn()
+}))
+
 const renderFunc = () => {
   return render(
     <Table>
@@ -17,10 +21,6 @@ const renderFunc = () => {
     </Table>
   )
 }
-
-jest.mock("next/router", () => ({
-  useRouter: jest.fn()
-}))
 
 describe("TaskItem", () => {
   const { click } = fireEvent
