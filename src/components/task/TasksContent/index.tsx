@@ -23,7 +23,7 @@ const TasksContent = () => {
         <TableRow>
           <TableCell>ID</TableCell>
           <TableCell>タスク名</TableCell>
-          <TableCell></TableCell>
+          <TableCell>状態</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>

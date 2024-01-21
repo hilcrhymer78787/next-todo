@@ -2,42 +2,43 @@ import "@testing-library/jest-dom"
 
 import { act, renderHook } from "@testing-library/react"
 
+import { RecoilRoot } from "recoil"
 import { myAxios } from "@/plugins/axios"
-import { useReadTasks } from "./"
+import { useReadTask } from "./"
 import { mockTasks } from "@/pages/api/task/readall"
 
 const renderFunc = () => {
-  return renderHook(() => useReadTasks())
+  return renderHook(() => useReadTask())
 }
 jest.mock("@/plugins/axios")
 describe("useReadUser", () => {
   it("通信成功", async () => {
     const { result } = renderFunc()
-    expect(result.current.tasks).toBe(null)
+    expect(result.current.task).toBe(null)
     await act(async () => {
       const axios: any = myAxios
-      axios.mockResolvedValue({ data: mockTasks })
-      await result.current.readTasks()
+      axios.mockResolvedValue({ data: mockTasks[0] })
+      await result.current.readTask("1")
     })
-    expect(result.current.readTasksError).toBe("")
-    expect(result.current.tasks).toEqual(mockTasks)
+    expect(result.current.readTaskError).toBe("")
+    expect(result.current.task).toEqual(mockTasks[0])
   })
 
   it("通信失敗", async () => {
     const { result } = renderFunc()
-    expect(result.current.tasks).toBe(null)
+    expect(result.current.task).toBe(null)
     await act(async () => {
       const axios: any = myAxios
       axios.mockRejectedValue({
         response: {
           status: 404,
           statusText: "Unauthorized",
-          data: { errorMessage: "通信に失敗しました" }
+          data: { errorMessage: "タスクが見つかりませんでした" }
         }
       })
-      await result.current.readTasks()
+      await result.current.readTask("1")
     })
-    expect(result.current.readTasksError).toBe("通信に失敗しました")
-    expect(result.current.tasks).toBe(null)
+    expect(result.current.readTaskError).toBe("タスクが見つかりませんでした")
+    expect(result.current.task).toBe(null)
   })
 })

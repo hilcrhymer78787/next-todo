@@ -22,6 +22,7 @@ describe("useReadUser", () => {
       await result.current.readUser()
     })
     expect(result.current.user).toEqual({ name: "Yamada Tetsuto", email: "test@gmail.com" })
+    expect(result.current.readUserError).toBe("")
   })
 
   it("通信失敗", async () => {
@@ -39,5 +40,6 @@ describe("useReadUser", () => {
       await result.current.readUser()
     })
     expect(result.current.user).toBe(null)
+    expect(result.current.readUserError).toBe("トークンが有効ではありません")
   })
 })
