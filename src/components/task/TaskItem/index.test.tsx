@@ -1,6 +1,7 @@
 import "@testing-library/jest-dom"
 
 import { fireEvent, render } from "@testing-library/react"
+import { Table, TableBody } from "@mui/material"
 
 import TaskItem from "./"
 import { mockTasks } from "@/pages/api/task/readall"
@@ -8,7 +9,13 @@ import {useRouter} from "next/router"
 
 jest.mock("@/plugins/axios")
 const renderFunc = () => {
-  return render(<TaskItem task={mockTasks[0]} i={0} />)
+  return render(
+  <Table>
+    <TableBody>
+    <TaskItem task={mockTasks[0]} i={0} />
+    </TableBody>
+  </Table>
+  )
 }
 
 jest.mock('next/router', () => ({
