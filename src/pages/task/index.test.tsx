@@ -1,10 +1,10 @@
 import "@testing-library/jest-dom"
 
-import { fireEvent, render,act ,screen} from "@testing-library/react"
+import { fireEvent, render, act, screen } from "@testing-library/react"
 
 import Tasks from "./"
 import { mockTasks } from "@/pages/api/task/readall"
-import {useRouter} from "next/router"
+import { useRouter } from "next/router"
 import { RecoilRoot } from "recoil"
 import { myAxios } from "@/plugins/axios"
 
@@ -17,12 +17,12 @@ const renderFunc = () => {
   )
 }
 
-jest.mock('next/router', () => ({
+jest.mock("next/router", () => ({
   useRouter: jest.fn()
 }))
 
 describe("Tasks", () => {
-  test("コンポーネントが表示される", async() => {
+  test("コンポーネントが表示される", async () => {
     expect("Tasks").toBe("Tasks")
   })
 
@@ -45,7 +45,7 @@ describe("Tasks", () => {
   //     push: pushMock,
   //   })
   //   const { getByTestId } = renderFunc()
-  //   click(getByTestId('Tasks-0'));  
+  //   click(getByTestId('Tasks-0'));
   //   expect(pushMock).toHaveBeenCalledWith('/task/read?taskId=1');
   // });
 })

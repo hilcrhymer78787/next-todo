@@ -14,7 +14,11 @@ const Tasks = () => {
         <CardHeader
           title="タスク"
           action={
-            <IconButton onClick={() => {router.push("/task/create")}}>
+            <IconButton
+              onClick={() => {
+                router.push("/task/create")
+              }}
+            >
               <AddIcon />
             </IconButton>
           }
