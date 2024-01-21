@@ -18,12 +18,7 @@ const AuthLayout = ({ children }: Props) => {
   if (readUserLoading) return <></>
   return (
     <Container sx={{ p: 5 }}>
-      {!!user && (
-        <>
-          {/* <Header /> */}
-          {children}
-        </>
-      )}
+      {!!user && children}
       {!user && <Auth />}
     </Container>
   )
