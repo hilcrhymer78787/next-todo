@@ -4,7 +4,7 @@ import { errHandler } from "@/data/common"
 import { myAxios } from "@/plugins/axios"
 import { useState } from "react"
 
-type Task = {
+export type Task = {
   id: number
   name: string
   isDone: boolean

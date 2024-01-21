@@ -17,7 +17,7 @@ const AuthLayout = ({ children }: Props) => {
   if (user === undefined) return <></>
   if (readUserLoading) return <></>
   return (
-    <Container>
+    <Container sx={{ p: 5 }}>
       {!!user && (
         <>
           {/* <Header /> */}

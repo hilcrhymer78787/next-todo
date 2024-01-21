@@ -1,19 +1,27 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles"
-import { orange, red } from "@mui/material/colors"
+import { orange, red, grey } from "@mui/material/colors"
 const theme = createTheme({
   palette: {
-    mode: "light"
-    // primary: {
-    //   main: '#0097a7',
-    // },
-    // secondary: {
-    //   main: '#19857b',
-    // },
-    // error: {
-    //   main: red[400],
-    // },
+    mode: "light",
+    primary: {
+      main: "#0097a7"
+    },
+    secondary: {
+      main: "#19857b"
+    },
+    error: {
+      main: red[400]
+    }
   },
   components: {
+    MuiTableRow: {
+      styleOverrides: {
+        root: {
+          ":hover": { backgroundColor: grey[200] },
+          cursor: "pointer"
+        }
+      }
+    },
     MuiCardHeader: {
       styleOverrides: {
         root: {
@@ -21,8 +29,7 @@ const theme = createTheme({
           color: "white",
           fontSize: "18px",
           "& .MuiSvgIcon-root": {
-            color: "white",
-            backgroundColor: "#0097a7"
+            color: "white"
           }
         }
       }
@@ -50,23 +57,13 @@ const theme = createTheme({
         }
       }
     },
-    MuiOutlinedInput: {
+    MuiContainer: {
       styleOverrides: {
         root: {
-          borderRadius: "10px",
-          marginRight: "15px"
+          maxWidth: 600
         }
       }
     }
-
-    // MuiCard: {
-    //   styleOverrides: {
-    //     root: {
-    //       minWidth: 275,
-    //       border: '1px solid rgba(255, 255, 255, 0.23)',
-    //     },
-    //   },
-    // },
     // MuiDialog: {
     //   defaultProps: {
     //     fullWidth: true,
