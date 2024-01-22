@@ -1,5 +1,5 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles"
-import { orange, red, grey } from "@mui/material/colors"
+import { grey, orange, red } from "@mui/material/colors"
 const theme = createTheme({
   palette: {
     mode: "light",
@@ -14,14 +14,6 @@ const theme = createTheme({
     }
   },
   components: {
-    MuiTableRow: {
-      styleOverrides: {
-        root: {
-          ":hover": { backgroundColor: grey[200] },
-          cursor: "pointer"
-        }
-      }
-    },
     MuiCardHeader: {
       styleOverrides: {
         root: {

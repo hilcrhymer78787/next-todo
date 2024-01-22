@@ -1,6 +1,8 @@
-import { Table, TableHead, TableBody, TableCell, TableRow } from "@mui/material"
+import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material"
+
 import { Task } from "@/data/task/useReadTasks"
 import { useRouter } from "next/router"
+
 type Props = {
   task: Task
   i: number
@@ -13,7 +15,14 @@ const TaskItem = ({ task, i }: Props) => {
     router.push(`/task/read?taskId=${id}`)
   }
   return (
-    <TableRow data-testid={`TaskItem-${i}`} onClick={onClickTask}>
+    <TableRow
+      data-testid={`TaskItem-${i}`}
+      onClick={onClickTask}
+      sx={{
+        ":hover": { backgroundColor: "grey.200" },
+        cursor: "pointer"
+      }}
+    >
       <TableCell>{id}</TableCell>
       <TableCell>{name}</TableCell>
       <TableCell>{isDone}</TableCell>
