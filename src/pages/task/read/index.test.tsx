@@ -1,11 +1,11 @@
 import "@testing-library/jest-dom"
 
-import { fireEvent, render, act, screen } from "@testing-library/react"
+import { act, fireEvent, render } from "@testing-library/react"
 
+import { RecoilRoot } from "recoil"
 import TaskRead from "./"
 import { mockTasks } from "@/pages/api/task/readall"
-import { useRouter } from "next/router"
-import { RecoilRoot } from "recoil"
+import { mockUser } from "@/pages/api/user/read"
 import { myAxios } from "@/plugins/axios"
 
 jest.mock("@/plugins/axios")
@@ -23,7 +23,7 @@ jest.mock("next/router", () => ({
 const renderFunc = () => {
   return act(async () => {
     const axios: any = myAxios
-    axios.mockResolvedValueOnce({ data: { name: "Yamada Tetsuto", email: "test@gmail.com" } })
+    axios.mockResolvedValueOnce({ data: mockUser })
     axios.mockResolvedValueOnce({ data: mockTasks[0] })
     return render(
       <RecoilRoot>

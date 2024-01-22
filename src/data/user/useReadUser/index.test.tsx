@@ -3,6 +3,7 @@ import "@testing-library/jest-dom"
 import { act, renderHook } from "@testing-library/react"
 
 import { RecoilRoot } from "recoil"
+import { mockUser } from "@/pages/api/user/read"
 import { myAxios } from "@/plugins/axios"
 import { useReadUser } from "./"
 
@@ -18,10 +19,10 @@ describe("useReadUser", () => {
     expect(result.current.user).toBe(undefined)
     await act(async () => {
       const axios: any = myAxios
-      axios.mockResolvedValue({ data: { name: "Yamada Tetsuto", email: "test@gmail.com" } })
+      axios.mockResolvedValue({ data: mockUser })
       await result.current.readUser()
     })
-    expect(result.current.user).toEqual({ name: "Yamada Tetsuto", email: "test@gmail.com" })
+    expect(result.current.user).toEqual(mockUser)
     expect(result.current.readUserError).toBe("")
   })
 

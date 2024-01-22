@@ -4,6 +4,7 @@ import { act, render } from "@testing-library/react"
 
 import AuthLayout from "./"
 import { RecoilRoot } from "recoil"
+import { mockUser } from "@/pages/api/user/read"
 import { myAxios } from "@/plugins/axios"
 
 jest.mock("@/plugins/axios")
@@ -22,7 +23,7 @@ describe("AuthLayout", () => {
   test("ユーザー情報が取得できたらコンポーネントが表示される", async () => {
     const { getByText } = await act(async () => {
       const axios: any = myAxios
-      axios.mockResolvedValue({ data: { name: "Yamada Tetsuto", email: "test@gmail.com" } })
+      axios.mockResolvedValue({ data: mockUser })
       return renderFunc()
     })
     expect(getByText("this is test")).toBeInTheDocument()
