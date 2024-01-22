@@ -1,12 +1,15 @@
 import "@testing-library/jest-dom"
 
-import { render, act } from "@testing-library/react"
+import { act, render } from "@testing-library/react"
 
 import AuthLayout from "./"
 import { RecoilRoot } from "recoil"
 import { myAxios } from "@/plugins/axios"
 
 jest.mock("@/plugins/axios")
+jest.mock("next/router", () => ({
+  useRouter: jest.fn()
+}))
 const renderFunc = () => {
   return render(
     <RecoilRoot>

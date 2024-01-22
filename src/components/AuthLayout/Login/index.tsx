@@ -2,10 +2,10 @@ import {
   Box,
   Button,
   Card,
-  Container,
   CardActions,
   CardContent,
   CardHeader,
+  Container,
   Divider,
   TextField,
   Typography
@@ -39,59 +39,57 @@ const Login = ({ setIsNew }: Props) => {
   }
 
   return (
-    <Container>
-      <Card data-testid="Login">
-        <CardHeader title="ログイン" sx={{ display: "flex", alignItems: "center" }} />
-        <Divider />
-        <CardContent>
-          <Box sx={{ mb: 2 }}>
-            <TextField
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value)
-              }}
-              label="メールアドレス"
-              error={!!emailError}
-              helperText={<span data-testid="loginEmailErr">{emailError}</span>}
-              onKeyDown={onKeyDown}
-              inputProps={{ "data-testid": "loginEmail" }}
-            />
-          </Box>
-          <Box>
-            <TextField
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value)
-              }}
-              label="パスワード"
-              error={!!passwordError}
-              helperText={<span data-testid="loginPasswordErr">{passwordError}</span>}
-              onKeyDown={onKeyDown}
-              inputProps={{ "data-testid": "loginPassword" }}
-            />
-          </Box>
-          {!!apiError && (
-            <Typography sx={{ p: 1 }} color="error" data-testid="loginApiErr">
-              {apiError}
-            </Typography>
-          )}
-        </CardContent>
-        <Divider />
-        <CardActions sx={{ justifyContent: "space-between" }}>
-          <Button
-            onClick={() => {
-              setIsNew(true)
+    <Card data-testid="Login">
+      <CardHeader title="ログイン" sx={{ display: "flex", alignItems: "center" }} />
+      <Divider />
+      <CardContent>
+        <Box sx={{ mb: 2 }}>
+          <TextField
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value)
             }}
-            data-testid="loginToNewUser"
-          >
-            新規登録画面へ
-          </Button>
-          <LoadingButton onClick={submit} loading={isLoading} data-testid="submitBtn" variant="contained">
-            登録
-          </LoadingButton>
-        </CardActions>
-      </Card>
-    </Container>
+            label="メールアドレス"
+            error={!!emailError}
+            helperText={<span data-testid="loginEmailErr">{emailError}</span>}
+            onKeyDown={onKeyDown}
+            inputProps={{ "data-testid": "loginEmail" }}
+          />
+        </Box>
+        <Box>
+          <TextField
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value)
+            }}
+            label="パスワード"
+            error={!!passwordError}
+            helperText={<span data-testid="loginPasswordErr">{passwordError}</span>}
+            onKeyDown={onKeyDown}
+            inputProps={{ "data-testid": "loginPassword" }}
+          />
+        </Box>
+        {!!apiError && (
+          <Typography sx={{ p: 1 }} color="error" data-testid="loginApiErr">
+            {apiError}
+          </Typography>
+        )}
+      </CardContent>
+      <Divider />
+      <CardActions sx={{ justifyContent: "space-between" }}>
+        <Button
+          onClick={() => {
+            setIsNew(true)
+          }}
+          data-testid="loginToNewUser"
+        >
+          新規登録画面へ
+        </Button>
+        <LoadingButton onClick={submit} loading={isLoading} data-testid="submitBtn" variant="contained">
+          登録
+        </LoadingButton>
+      </CardActions>
+    </Card>
   )
 }
 export default Login
