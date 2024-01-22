@@ -5,17 +5,18 @@ import { useRouter } from "next/router"
 
 type Props = {
   nav: Nav
+  i: number
 }
-const NavItem = ({ nav }: Props) => {
-  const { ttl, icon, path } = nav
+const NavItem = ({ nav, i }: Props) => {
   const router = useRouter()
+  const { ttl, icon, path } = nav
   const onClickNav = () => {
     router.push(path)
   }
   return (
-    <ListItemButton>
+    <ListItemButton onClick={onClickNav} data-testid={`NavItem-${i}`}>
       <ListItemIcon>{icon}</ListItemIcon>
-      <ListItemText primary={ttl} onClick={onClickNav} />
+      <ListItemText primary={ttl} />
     </ListItemButton>
   )
 }

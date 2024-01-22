@@ -46,7 +46,7 @@ const Dashboard = ({ children }: Props) => {
         <Divider />
         <List component="nav">
           {navs.map((nav, i) => (
-            <NavItem nav={nav} key={i} />
+            <NavItem nav={nav} i={i} key={i} />
           ))}
         </List>
       </Drawer>
