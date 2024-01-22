@@ -32,7 +32,7 @@ const Dashboard = ({ children }: Props) => {
   if (!user) return <></>
   const { name } = user
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }} data-testid="Dashboard">
       <Drawer
         sx={{
           "& .Drawer-paper": {

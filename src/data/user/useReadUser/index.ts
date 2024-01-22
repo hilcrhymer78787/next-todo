@@ -4,7 +4,7 @@ import { errHandler } from "@/data/common"
 import { myAxios } from "@/plugins/axios"
 import { useState } from "react"
 
-type User = {
+export type User = {
   name: string
   email: string
 }
