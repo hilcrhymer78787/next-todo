@@ -24,17 +24,11 @@ import ErrTxt from "@/components/common/ErrTxt"
 const TaskCreateContent = () => {
   const router = useRouter()
   const { nameError, isDoneError, createTaskLoading, createTask, createTaskError } = useCreateTask()
-  // const isLoading = useMemo(() => basicAuthLoading || readUserLoading, [basicAuthLoading, readUserLoading])
-  // const apiError = useMemo(() => {
-  //   if (!!basicAuthError) return basicAuthError
-  //   if (!!readUserError) return readUserError
-  //   return ""
-  // }, [basicAuthError, readUserError])
   const [name, setName] = useState("")
   const [isDone, setIsDone] = useState(0)
   const submit = async () => {
     const res = await createTask(name, Boolean(isDone))
-    // if (res) await readUser()
+    if (res) await router.push("/task")
   }
   const onClickReturn = () => {
     router.push("/task")
