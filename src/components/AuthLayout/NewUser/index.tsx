@@ -14,6 +14,7 @@ import { useMemo, useState } from "react"
 import LoadingButton from "@mui/lab/LoadingButton"
 import { useCreateUser } from "@/data/user/useCreateUser/index"
 import { useReadUser } from "@/data/user/useReadUser"
+import ErrTxt from "@/components/common/ErrTxt"
 
 type Props = {
   setIsNew: React.Dispatch<React.SetStateAction<boolean>>
@@ -94,11 +95,7 @@ const NewUser = ({ setIsNew }: Props) => {
               inputProps={{ "data-testid": "NewUserPasswordConfirm" }}
             />
           </Box>
-          {!!apiError && (
-            <Typography sx={{ p: 1 }} color="error" data-testid="NewUserApiErr">
-              {apiError}
-            </Typography>
-          )}
+          <ErrTxt txt={apiError} testId="NewUserApiErr"/>
         </CardContent>
         <CardActions>
           <Button
