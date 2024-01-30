@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Divider } from "@mui/material"
+import { Card, CardContent, CardHeader } from "@mui/material"
 
 import IconButton from "@mui/material/IconButton"
 import AddIcon from "@mui/icons-material/Add"
@@ -22,7 +22,6 @@ const Tasks = () => {
             </IconButton>
           }
         />
-        <Divider />
         <CardContent sx={{ p: "0 !important" }}>
           <TasksContent />
         </CardContent>

@@ -1,8 +1,9 @@
-import { Card, CardContent, CardHeader, Divider } from "@mui/material"
+import { Card, CardHeader } from "@mui/material"
 
+import AuthLayout from "@/layouts/AuthLayout"
 import IconButton from "@mui/material/IconButton"
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn"
-import AuthLayout from "@/layouts/AuthLayout"
+import TaskEdit from "@/components/task/TaskEdit"
 import { useRouter } from "next/router"
 
 const TaskCreate = () => {
@@ -21,8 +22,7 @@ const TaskCreate = () => {
             </IconButton>
           }
         />
-        <Divider />
-        <CardContent>add icon</CardContent>
+        <TaskEdit />
       </Card>
     </AuthLayout>
   )

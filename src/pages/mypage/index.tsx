@@ -1,4 +1,4 @@
-import { Card, CardHeader, Divider, Table, TableBody, TableCell, TableRow } from "@mui/material"
+import { Card, CardHeader, Table, TableBody, TableCell, TableRow } from "@mui/material"
 
 import AuthLayout from "@/layouts/AuthLayout"
 import { useReadUser } from "@/data/user/useReadUser"
@@ -9,7 +9,6 @@ const Mypage = () => {
     <AuthLayout>
       <Card data-testid="Mypage">
         <CardHeader title="マイページ" />
-        <Divider />
         <Table>
           <TableBody>
             <TableRow>

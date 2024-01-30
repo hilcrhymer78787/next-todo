@@ -1,23 +1,36 @@
-import { ThemeProvider, createTheme } from "@mui/material/styles"
-import { grey, orange, red } from "@mui/material/colors"
+import { grey, orange, red, teal } from "@mui/material/colors"
+
+import { createTheme } from "@mui/material/styles"
+
+const PRIMARY = teal[400]
+const SECONDARY = orange[300]
+const ERROR = red[400]
+const BORDER = "rgba(0, 0, 0, 0.12)"
 const theme = createTheme({
   palette: {
-    mode: "light",
     primary: {
-      main: "#0097a7"
+      main: PRIMARY
     },
     secondary: {
-      main: "#19857b"
+      main: SECONDARY
     },
     error: {
-      main: red[400]
+      main: ERROR
     }
   },
   components: {
+    MuiButton: {
+      styleOverrides: {
+        containedSecondary: {
+          color: 'white',
+        },
+      },
+    },
     MuiCardHeader: {
       styleOverrides: {
         root: {
-          backgroundColor: "#0097a7",
+          backgroundColor: PRIMARY,
+          borderBottom:`1px solid ${BORDER}`,
           color: "white",
           fontSize: "18px",
           "& .MuiSvgIcon-root": {
@@ -26,26 +39,18 @@ const theme = createTheme({
         }
       }
     },
-    MuiButton: {
+    MuiCardActions: {
       styleOverrides: {
         root: {
-          borderRadius: "6px",
-          backgroundColor: "orange",
-          color: "white",
-          padding: "8px 12px",
-          opacity: 1.0,
-          boxShadow: "0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%)",
-          "&:hover": {
-            backgroundColor: "orange",
-            opacity: 0.9
-          }
+          borderTop:`1px solid ${BORDER}`,
+          justifyContent: "space-between"
         }
       }
     },
-    MuiCircularProgress: {
+    MuiDivider: {
       styleOverrides: {
         root: {
-          color: "#0097a7"
+          borderColor: BORDER
         }
       }
     },
@@ -55,18 +60,7 @@ const theme = createTheme({
           maxWidth: 600
         }
       }
-    }
-    // MuiDialog: {
-    //   defaultProps: {
-    //     fullWidth: true,
-    //     maxWidth: "sm",
-    //   },
-    // },
-    // MuiDialogContent: {
-    //   defaultProps: {
-    //     dividers: true,
-    //   },
-    // },
+    },
   }
 })
 export default theme

@@ -34,12 +34,6 @@ const Dashboard = ({ children }: Props) => {
   return (
     <Box sx={{ display: "flex" }} data-testid="Dashboard">
       <Drawer
-        sx={{
-          "& .Drawer-paper": {
-            whiteSpace: "nowrap",
-            width: 220
-          }
-        }}
         variant="permanent"
       >
         <Toolbar>{name}</Toolbar>
@@ -56,7 +50,7 @@ const Dashboard = ({ children }: Props) => {
           flexGrow: 1,
           height: "100vh",
           overflow: "auto",
-          paddingLeft: "240px"
+          paddingLeft: "170px"
         }}
       >
         <Container maxWidth="lg" sx={{ my: 4 }}>
