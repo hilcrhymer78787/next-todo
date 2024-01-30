@@ -10,8 +10,9 @@ export const useCreateTask = () => {
   const [createTaskError, setCreateTaskError] = useState("")
   const [nameError, setNameError] = useState("")
   const [isDoneError, setIsDoneError] = useState("")
-  const createTask = async (name: string, isDone: number) => {
+  const createTask = async (name: string, isDone: boolean) => {
     setCreateTaskError("")
+    setNameError("")
     setIsDoneError("")
     let isError = false
     if (!name) {
@@ -22,8 +23,8 @@ export const useCreateTask = () => {
     setCreateTaskLoading(true)
     const requestConfig = {
       url: "/task/create",
-      method: "GET",
-      params: { isDone }
+      method: "POST",
+      data: { name, isDone }
     }
     return myAxios(requestConfig)
       .then((res) => {

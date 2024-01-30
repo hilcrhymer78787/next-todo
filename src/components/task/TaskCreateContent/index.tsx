@@ -17,13 +17,13 @@ import { useMemo, useState } from "react"
 
 import LoadingButton from "@mui/lab/LoadingButton"
 import { useCreateTask } from "@/data/task/useCreateTask"
-import { useReadUser } from "@/data/user/useReadUser"
 import { useRouter } from "next/router"
+import ErrTxt from "@/components/common/ErrTxt"
 
+//
 const TaskCreateContent = () => {
   const router = useRouter()
-  const { nameError, isDoneError, createTaskLoading } = useCreateTask()
-  // const { readUser, readUserError, readUserLoading } = useReadUser()
+  const { nameError, isDoneError, createTaskLoading, createTask, createTaskError } = useCreateTask()
   // const isLoading = useMemo(() => basicAuthLoading || readUserLoading, [basicAuthLoading, readUserLoading])
   // const apiError = useMemo(() => {
   //   if (!!basicAuthError) return basicAuthError
@@ -33,7 +33,7 @@ const TaskCreateContent = () => {
   const [name, setName] = useState("")
   const [isDone, setIsDone] = useState(0)
   const submit = async () => {
-    // const res = await basicAuth(name, isDone)
+    const res = await createTask(name, Boolean(isDone))
     // if (res) await readUser()
   }
   const onClickReturn = () => {
@@ -76,6 +76,7 @@ const TaskCreateContent = () => {
             </Select>
           </FormControl>
         </Box>
+        <ErrTxt txt={createTaskError} />
       </CardContent>
       <CardActions>
         <Button onClick={onClickReturn} data-testid="NewUserToLogin">
