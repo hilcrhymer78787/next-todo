@@ -1,4 +1,4 @@
 const Sample = () => {
-  return <div>this is sample</div>
+  return <div>this is Sample</div>
 }
 export default Sample
