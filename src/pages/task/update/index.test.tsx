@@ -33,9 +33,9 @@ const renderFunc = () => {
   })
 }
 describe("TaskUpdate", () => {
-  // beforeEach(() => {
-  //   jest.clearAllMocks();
-  // })
+  beforeEach(() => {
+    jest.clearAllMocks();
+  })
 
   const { click, change } = fireEvent
 
@@ -52,37 +52,37 @@ describe("TaskUpdate", () => {
 
   test("空白でエラー", async () => {
     const { getByTestId } = await renderFunc()
-    click(getByTestId("TaskUpdateSubmitBtn"))
     change(getByTestId("TaskUpdateName"), { target: { value: "" } })
-    expect(getByTestId("TaskUpdateNameErr").innerHTML).toBe("名前は必須ですhoge")
+    click(getByTestId("TaskUpdateSubmitBtn"))
+    expect(getByTestId("TaskUpdateNameErr").innerHTML).toBe("名前は必須です")
   })
 
-  // test("登録失敗したら、エラーが表示される", async () => {
-  //   const { getByTestId } = await renderFunc()
-  //   change(getByTestId("TaskUpdateName"), { target: { value: "家計簿をつける" } })
-  //   await act(async () => {
-  //     const axios: any = myAxios
-  //     axios.mockRejectedValue({
-  //       response: {
-  //         status: 500,
-  //         statusText: "Internal Server Error",
-  //         data: { errorMessage: "通信エラーです" }
-  //       }
-  //     })
-  //     click(getByTestId("TaskUpdateSubmitBtn"))
-  //   })
-  //   expect(getByTestId("TaskUpdateErr").innerHTML).toBe("通信エラーです")
-  //   expect(push).not.toHaveBeenCalled();
-  // })
+  test("登録失敗したら、エラーが表示される", async () => {
+    const { getByTestId } = await renderFunc()
+    change(getByTestId("TaskUpdateName"), { target: { value: "家計簿をつける" } })
+    await act(async () => {
+      const axios: any = myAxios
+      axios.mockRejectedValue({
+        response: {
+          status: 500,
+          statusText: "Internal Server Error",
+          data: { errorMessage: "通信エラーです" }
+        }
+      })
+      click(getByTestId("TaskUpdateSubmitBtn"))
+    })
+    expect(getByTestId("TaskUpdateErr").innerHTML).toBe("通信エラーです")
+    expect(push).not.toHaveBeenCalled();
+  })
 
-  // test("登録成功したら、タスク一覧ページへ遷移", async () => {
-  //   const { getByTestId } = await renderFunc()
-  //   change(getByTestId("TaskUpdateName"), { target: { value: "家計簿をつける" } })
-  //   await act(async () => {
-  //     const axios: any = myAxios
-  //     axios.mockResolvedValue({ data: null })
-  //     click(getByTestId("TaskUpdateSubmitBtn"))
-  //   })
-  //   expect(push).toHaveBeenCalledWith("/task")
-  // })
+  test("登録成功したら、タスク一覧ページへ遷移", async () => {
+    const { getByTestId } = await renderFunc()
+    change(getByTestId("TaskUpdateName"), { target: { value: "家計簿をつける" } })
+    await act(async () => {
+      const axios: any = myAxios
+      axios.mockResolvedValue({ data: null })
+      click(getByTestId("TaskUpdateSubmitBtn"))
+    })
+    expect(push).toHaveBeenCalledWith("/task")
+  })
 })
