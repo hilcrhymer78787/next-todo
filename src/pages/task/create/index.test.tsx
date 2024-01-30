@@ -31,7 +31,7 @@ const renderFunc = () => {
 }
 describe("TaskCreate", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    jest.clearAllMocks()
   })
 
   const { click, change } = fireEvent
@@ -68,7 +68,7 @@ describe("TaskCreate", () => {
       click(getByTestId("TaskCreateSubmitBtn"))
     })
     expect(getByTestId("TaskCreateErr").innerHTML).toBe("通信エラーです")
-    expect(push).not.toHaveBeenCalled();
+    expect(push).not.toHaveBeenCalled()
   })
 
   test("登録成功したら、タスク一覧ページへ遷移", async () => {

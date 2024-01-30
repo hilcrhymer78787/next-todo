@@ -69,7 +69,7 @@ const TaskCreate = () => {
               </Select>
             </FormControl>
           </Box>
-          <ErrTxt txt={createTaskError} testId="TaskCreateErr"/>
+          <ErrTxt txt={createTaskError} testId="TaskCreateErr" />
         </CardContent>
         <CardActions>
           <Button onClick={onClickReturn} data-testid="TaskCreateReturnBtn">

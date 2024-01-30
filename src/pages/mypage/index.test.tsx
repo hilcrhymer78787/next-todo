@@ -1,10 +1,9 @@
 import "@testing-library/jest-dom"
 
-import { act, fireEvent, render } from "@testing-library/react"
+import { act, render } from "@testing-library/react"
 
 import Mypage from "./"
 import { RecoilRoot } from "recoil"
-import { mock } from "node:test"
 import { mockUser } from "@/pages/api/user/read"
 import { myAxios } from "@/plugins/axios"
 

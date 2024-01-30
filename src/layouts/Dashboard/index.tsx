@@ -33,9 +33,7 @@ const Dashboard = ({ children }: Props) => {
   const { name } = user
   return (
     <Box sx={{ display: "flex" }} data-testid="Dashboard">
-      <Drawer
-        variant="permanent"
-      >
+      <Drawer variant="permanent">
         <Toolbar>{name}</Toolbar>
         <Divider />
         <List component="nav">

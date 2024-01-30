@@ -95,7 +95,7 @@ const NewUser = ({ setIsNew }: Props) => {
               inputProps={{ "data-testid": "NewUserPasswordConfirm" }}
             />
           </Box>
-          <ErrTxt txt={apiError} testId="NewUserApiErr"/>
+          <ErrTxt txt={apiError} testId="NewUserApiErr" />
         </CardContent>
         <CardActions>
           <Button

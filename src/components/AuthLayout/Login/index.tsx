@@ -41,7 +41,7 @@ const Login = ({ setIsNew }: Props) => {
   return (
     <Container data-testid="Login" maxWidth="sm" sx={{ my: 5 }}>
       <Card>
-        <CardHeader title="ログイン"/>
+        <CardHeader title="ログイン" />
         <CardContent>
           <Box sx={{ mb: 2 }}>
             <TextField
@@ -69,7 +69,7 @@ const Login = ({ setIsNew }: Props) => {
               inputProps={{ "data-testid": "loginPassword" }}
             />
           </Box>
-          <ErrTxt txt={apiError} testId="loginApiErr"/>
+          <ErrTxt txt={apiError} testId="loginApiErr" />
         </CardContent>
         <CardActions>
           <Button

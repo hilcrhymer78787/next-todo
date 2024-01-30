@@ -36,7 +36,7 @@ export const useReadUser = () => {
         setReadUserLoading(false)
       })
   }
-  const logout =()=>{
+  const logout = () => {
     localStorage.removeItem("token")
     setUser(null)
   }

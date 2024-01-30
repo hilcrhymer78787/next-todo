@@ -22,15 +22,15 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         containedSecondary: {
-          color: 'white',
-        },
-      },
+          color: "white"
+        }
+      }
     },
     MuiCardHeader: {
       styleOverrides: {
         root: {
           backgroundColor: PRIMARY,
-          borderBottom:`1px solid ${BORDER}`,
+          borderBottom: `1px solid ${BORDER}`,
           color: "white",
           fontSize: "18px",
           "& .MuiSvgIcon-root": {
@@ -42,7 +42,7 @@ const theme = createTheme({
     MuiCardActions: {
       styleOverrides: {
         root: {
-          borderTop:`1px solid ${BORDER}`,
+          borderTop: `1px solid ${BORDER}`,
           justifyContent: "space-between"
         }
       }
@@ -60,7 +60,7 @@ const theme = createTheme({
           maxWidth: 600
         }
       }
-    },
+    }
   }
 })
 export default theme

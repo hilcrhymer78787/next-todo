@@ -4,7 +4,7 @@ type Props = {
   testId?: string
 }
 const ErrTxt = ({ txt, testId = "ErrTxt" }: Props) => {
-  if(!txt) return <></>
+  if (!txt) return <></>
   return (
     <Typography color="error" data-testid={testId} sx={{ p: 5 }}>
       {txt}

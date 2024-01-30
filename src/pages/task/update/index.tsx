@@ -33,14 +33,12 @@ const TaskUpdate = () => {
   )
 }
 
-type TaskUpdateMainProps = {}
-const TaskUpdateMain = ({}: TaskUpdateMainProps) => {
+const TaskUpdateMain = () => {
   const router = useRouter()
+  const { task, readTask, readTaskError, readTaskLoading } = useReadTask()
   const onClickReturn = () => {
     router.push("/task")
   }
-  const { task, readTask, readTaskError, readTaskLoading } = useReadTask()
-
   useEffect(() => {
     const { taskId } = router.query
     if (!taskId) return
@@ -57,7 +55,7 @@ const TaskUpdateMain = ({}: TaskUpdateMainProps) => {
   }
 
   return (
-    <>
+    <Box data-testid="TaskUpdateMain">
       <TaskForm />
       {!task && (
         <CardActions>
@@ -66,7 +64,7 @@ const TaskUpdateMain = ({}: TaskUpdateMainProps) => {
           </Button>
         </CardActions>
       )}
-    </>
+    </Box>
   )
 }
 
@@ -77,7 +75,7 @@ const TaskUpdateMainContent = ({ task }: TaskUpdateMainContentProps) => {
   const router = useRouter()
   const { nameError, isDoneError, updateTaskLoading, updateTask, updateTaskError } = useUpdateTask()
   const [name, setName] = useState(task.name)
-  const [isDone, setIsDone] = useState(task.isDone ? 1 : 0)
+  const [isDone, setIsDone] = useState(Number(task.isDone))
   const submit = async () => {
     const res = await updateTask(name, Boolean(isDone))
     if (res) await router.push("/task")
@@ -89,7 +87,7 @@ const TaskUpdateMainContent = ({ task }: TaskUpdateMainContentProps) => {
     router.push("/task")
   }
   return (
-    <>
+    <Box data-testid="TaskUpdateMainContent">
       <CardContent>
         <Box sx={{ mb: 2 }}>
           <TextField
@@ -122,7 +120,7 @@ const TaskUpdateMainContent = ({ task }: TaskUpdateMainContentProps) => {
             </Select>
           </FormControl>
         </Box>
-        <ErrTxt txt={updateTaskError} testId="TaskUpdateErr"/>
+        <ErrTxt txt={updateTaskError} testId="TaskUpdateErr" />
       </CardContent>
       <CardActions>
         <Button onClick={onClickReturn} data-testid="TaskUpdateReturnBtn">
@@ -138,7 +136,7 @@ const TaskUpdateMainContent = ({ task }: TaskUpdateMainContentProps) => {
           登録
         </LoadingButton>
       </CardActions>
-    </>
+    </Box>
   )
 }
 
