@@ -5,6 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline"
 import { RecoilRoot } from "recoil"
 import { ThemeProvider } from "@mui/material/styles"
 import theme from "@/plugins/theme"
+import { useRouter } from "next/router"
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

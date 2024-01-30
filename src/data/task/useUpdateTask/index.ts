@@ -20,7 +20,7 @@ export const useUpdateTask = () => {
     setUpdateTaskLoading(true)
     const requestConfig = {
       url: "/task/update",
-      method: "POST",
+      method: "PUT",
       data: { name, isDone }
     }
     return myAxios(requestConfig)

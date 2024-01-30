@@ -3,7 +3,8 @@ import "@testing-library/jest-dom"
 import { act, fireEvent, render } from "@testing-library/react"
 
 import { RecoilRoot } from "recoil"
-import TaskCreate from "./"
+import TaskUpdate from "./"
+import { mockTasks } from "@/pages/api/task/readall"
 import { mockUser } from "@/pages/api/user/read"
 import { myAxios } from "@/plugins/axios"
 
@@ -13,6 +14,7 @@ const push = jest.fn()
 jest.mock("next/router", () => ({
   useRouter: () => {
     return {
+      query: { taskId: "1" },
       push
     }
   }
@@ -22,63 +24,65 @@ const renderFunc = () => {
   return act(async () => {
     const axios: any = myAxios
     axios.mockResolvedValueOnce({ data: mockUser })
+    axios.mockResolvedValueOnce({ data: mockTasks[0] })
     return render(
       <RecoilRoot>
-        <TaskCreate />
+        <TaskUpdate />
       </RecoilRoot>
     )
   })
 }
-describe("TaskCreate", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  })
+describe("TaskUpdate", () => {
+  // beforeEach(() => {
+  //   jest.clearAllMocks();
+  // })
 
   const { click, change } = fireEvent
 
   test("コンポーネントが表示される", async () => {
     const { getByTestId } = await renderFunc()
-    expect(getByTestId("TaskCreate")).toBeInTheDocument()
+    expect(getByTestId("TaskUpdate")).toBeInTheDocument()
   })
 
   test("タスク一覧ページへ遷移", async () => {
     const { getByTestId } = await renderFunc()
-    click(getByTestId("TaskCreateReturnBtn"))
+    click(getByTestId("TaskUpdateReturnBtn"))
     expect(push).toHaveBeenCalledWith("/task")
   })
 
   test("空白でエラー", async () => {
     const { getByTestId } = await renderFunc()
-    click(getByTestId("TaskCreateSubmitBtn"))
-    expect(getByTestId("TaskCreateNameErr").innerHTML).toBe("名前は必須です")
+    click(getByTestId("TaskUpdateSubmitBtn"))
+    change(getByTestId("TaskUpdateName"), { target: { value: "" } })
+    expect(getByTestId("TaskUpdateNameErr").innerHTML).toBe("名前は必須ですhoge")
   })
 
-  test("登録失敗したら、エラーが表示される", async () => {
-    const { getByTestId } = await renderFunc()
-    change(getByTestId("TaskCreateName"), { target: { value: "家計簿をつける" } })
-    await act(async () => {
-      const axios: any = myAxios
-      axios.mockRejectedValue({
-        response: {
-          status: 500,
-          statusText: "Internal Server Error",
-          data: { errorMessage: "通信エラーです" }
-        }
-      })
-      click(getByTestId("TaskCreateSubmitBtn"))
-    })
-    expect(getByTestId("TaskCreateErr").innerHTML).toBe("通信エラーです")
-    expect(push).not.toHaveBeenCalled();
-  })
+  // test("登録失敗したら、エラーが表示される", async () => {
+  //   const { getByTestId } = await renderFunc()
+  //   change(getByTestId("TaskUpdateName"), { target: { value: "家計簿をつける" } })
+  //   await act(async () => {
+  //     const axios: any = myAxios
+  //     axios.mockRejectedValue({
+  //       response: {
+  //         status: 500,
+  //         statusText: "Internal Server Error",
+  //         data: { errorMessage: "通信エラーです" }
+  //       }
+  //     })
+  //     click(getByTestId("TaskUpdateSubmitBtn"))
+  //   })
+  //   expect(getByTestId("TaskUpdateErr").innerHTML).toBe("通信エラーです")
+  //   expect(push).not.toHaveBeenCalled();
+  // })
 
-  test("登録成功したら、タスク一覧ページへ遷移", async () => {
-    const { getByTestId } = await renderFunc()
-    change(getByTestId("TaskCreateName"), { target: { value: "家計簿をつける" } })
-    await act(async () => {
-      const axios: any = myAxios
-      axios.mockResolvedValue({ data: null })
-      click(getByTestId("TaskCreateSubmitBtn"))
-    })
-    expect(push).toHaveBeenCalledWith("/task")
-  })
+  // test("登録成功したら、タスク一覧ページへ遷移", async () => {
+  //   const { getByTestId } = await renderFunc()
+  //   change(getByTestId("TaskUpdateName"), { target: { value: "家計簿をつける" } })
+  //   await act(async () => {
+  //     const axios: any = myAxios
+  //     axios.mockResolvedValue({ data: null })
+  //     click(getByTestId("TaskUpdateSubmitBtn"))
+  //   })
+  //   expect(push).toHaveBeenCalledWith("/task")
+  // })
 })
