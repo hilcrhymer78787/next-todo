@@ -20,7 +20,7 @@ import { useCreateTask } from "@/data/task/useCreateTask"
 import { useReadUser } from "@/data/user/useReadUser"
 import { useRouter } from "next/router"
 
-const TaskEdit = () => {
+const TaskCreateContent = () => {
   const router = useRouter()
   const { nameError, isDoneError, createTaskLoading } = useCreateTask()
   // const { readUser, readUserError, readUserLoading } = useReadUser()
@@ -44,7 +44,7 @@ const TaskEdit = () => {
   }
   return (
     <Box>
-      <CardContent data-testid="TaskEdit">
+      <CardContent data-testid="TaskCreateContent">
         <Box sx={{ mb: 2 }}>
           <TextField
             value={name}
@@ -53,9 +53,9 @@ const TaskEdit = () => {
             }}
             label="タスク名"
             error={!!nameError}
-            helperText={<span data-testid="TaskEditNameErr">{nameError}</span>}
+            helperText={<span data-testid="TaskCreateContentNameErr">{nameError}</span>}
             onKeyDown={onKeyDown}
-            inputProps={{ "data-testid": "TaskEditName" }}
+            inputProps={{ "data-testid": "TaskCreateContentName" }}
           />
         </Box>
         <Box>
@@ -69,7 +69,7 @@ const TaskEdit = () => {
               onChange={(e) => {
                 setIsDone(Number(e.target.value))
               }}
-              inputProps={{ "data-testid": "TaskEditIsDone" }}
+              inputProps={{ "data-testid": "TaskCreateContentIsDone" }}
             >
               <MenuItem value={0}>未</MenuItem>
               <MenuItem value={1}>済</MenuItem>
@@ -88,4 +88,4 @@ const TaskEdit = () => {
     </Box>
   )
 }
-export default TaskEdit
+export default TaskCreateContent

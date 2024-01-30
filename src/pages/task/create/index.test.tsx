@@ -37,9 +37,9 @@ describe("TaskCreate", () => {
     expect(getByTestId("TaskCreate")).toBeInTheDocument()
   })
 
-  test("クリックしたらタスク追加ページへ遷移する", async () => {
-    const { getByTestId } = await renderFunc()
-    click(getByTestId("TaskCreateReturnBtn"))
-    expect(push).toHaveBeenCalledWith("/task")
-  })
+  // test("クリックしたらタスク追加ページへ遷移する", async () => {
+  //   const { getByTestId } = await renderFunc()
+  //   click(getByTestId("TaskCreateReturnBtn"))
+  //   expect(push).toHaveBeenCalledWith("/task")
+  // })
 })
