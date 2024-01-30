@@ -1,7 +1,11 @@
 import "@testing-library/jest-dom"
 
-describe("demmy", () => {
-  test("demmy", async () => {
-    expect("dummy").toBe("dummy")
+import Loading from "./"
+import { render } from "@testing-library/react"
+
+describe("Loading", () => {
+  test("コンポーネントが表示される", async () => {
+    const { getByTestId } = render(<Loading />)
+    expect(getByTestId("Loading")).toBeInTheDocument()
   })
 })

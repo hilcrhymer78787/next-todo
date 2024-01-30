@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material"
 type Props = {
-  txt: string
+  txt?: string
   testId?: string
 }
 const ErrTxt = ({ txt, testId = "ErrTxt" }: Props) => {

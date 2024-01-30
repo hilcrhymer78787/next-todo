@@ -1,10 +1,12 @@
 import { Typography } from "@mui/material"
 type Props = {
-  txt: string
+  txt?: string
+  testId?: string
 }
-const NoData = ({ txt }: Props) => {
+const NoData = ({ txt, testId = "NoData" }: Props) => {
+  if (!txt) return <></>
   return (
-    <Typography data-testid="NoData" sx={{ p: 5 }}>
+    <Typography data-testid={testId} sx={{ p: 5 }}>
       {txt}
     </Typography>
   )

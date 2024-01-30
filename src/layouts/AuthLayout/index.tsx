@@ -1,5 +1,3 @@
-import { CardHeader, Container, Typography } from "@mui/material"
-// import Header from "@/components/common/Header/Header"
 import { ReactNode, useEffect } from "react"
 
 import Auth from "@/components/AuthLayout/Auth"
