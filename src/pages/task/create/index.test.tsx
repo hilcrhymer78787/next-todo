@@ -30,16 +30,33 @@ const renderFunc = () => {
   })
 }
 describe("TaskCreate", () => {
-  const { click } = fireEvent
+  const { click, change } = fireEvent
 
   test("コンポーネントが表示される", async () => {
     const { getByTestId } = await renderFunc()
     expect(getByTestId("TaskCreate")).toBeInTheDocument()
   })
 
-  // test("クリックしたらタスク追加ページへ遷移する", async () => {
-  //   const { getByTestId } = await renderFunc()
-  //   click(getByTestId("TaskCreateReturnBtn"))
-  //   expect(push).toHaveBeenCalledWith("/task")
-  // })
+  test("タスク一覧ページへ遷移", async () => {
+    const { getByTestId } = await renderFunc()
+    click(getByTestId("TaskCreateReturnBtn"))
+    expect(push).toHaveBeenCalledWith("/task")
+  })
+
+  test("空白でエラー", async () => {
+    const { getByTestId } = await renderFunc()
+    click(getByTestId("TaskCreateSubmitBtn"))
+    expect(getByTestId("TaskCreateNameErr").innerHTML).toBe("名前は必須です")
+  })
+
+  test("登録成功したら、タスク一覧ページへ遷移", async () => {
+    const { getByTestId } = await renderFunc()
+    change(getByTestId("TaskCreateName"), { target: { value: "家計簿をつける" } })
+    await act(async () => {
+      const axios: any = myAxios
+      axios.mockResolvedValue({ data: null })
+      click(getByTestId("TaskCreateSubmitBtn"))
+    })
+    expect(push).toHaveBeenCalledWith("/task")
+  })
 })

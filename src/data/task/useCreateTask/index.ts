@@ -1,6 +1,3 @@
-import { atom, useRecoilState } from "recoil"
-
-import { Task } from "@/data/task/useReadTasks"
 import { errHandler } from "@/data/common"
 import { myAxios } from "@/plugins/axios"
 import { useState } from "react"
