@@ -1,18 +1,50 @@
 import "@testing-library/jest-dom"
 
-// import TaskCreate from "./"
-import { render } from "@testing-library/react"
+import { act, renderHook } from "@testing-library/react"
 
+import { myAxios } from "@/plugins/axios"
+import { useCreateTask } from "./"
+
+const renderFunc = () => {
+  return renderHook(() => useCreateTask())
+}
 jest.mock("@/plugins/axios")
-// const renderFunc = () => {
-//   return render(<TaskCreate />)
-// }
-describe("AuthLayout", () => {
-  // test("コンポーネントが表示される", async () => {
-  //   const { getByText } = renderFunc()
-  //   expect(getByText("this is TaskCreate")).toBeInTheDocument()
-  // })
-  test("demmy", async () => {
-    expect("dummy").toBe("dummy")
+describe("useCreateTask", () => {
+  it("名前が空白で登録した場合", async () => {
+    const { result } = renderFunc()
+    expect(result.current.nameError).toBe("")
+    await act(async () => {
+      await result.current.createTask("", false)
+    })
+    expect(result.current.nameError).toBe("名前は必須です")
+    expect(result.current.createTaskLoading).toBe(false)
+  })
+
+  it("通信のテスト（成功）", async () => {
+    const { result } = renderFunc()
+    await act(async () => {
+      const axios: any = myAxios
+      axios.mockResolvedValue({ data: null })
+      await result.current.createTask("掃除", false)
+    })
+    expect(result.current.nameError).toBe("")
+    expect(result.current.createTaskError).toBe("")
+  })
+
+  it("通信のテスト（失敗）", async () => {
+    const { result } = renderFunc()
+    await act(async () => {
+      const axios: any = myAxios
+      axios.mockRejectedValue({
+        response: {
+          status: 404,
+          statusText: "Unauthorized",
+          data: { errorMessage: "タスクが見つかりませんでした" }
+        }
+      })
+      await result.current.createTask("掃除", false)
+    })
+    expect(result.current.nameError).toBe("")
+    expect(result.current.createTaskError).toBe("タスクが見つかりませんでした")
   })
 })
