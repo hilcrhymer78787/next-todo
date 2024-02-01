@@ -37,14 +37,14 @@ describe("useCreateTask", () => {
       const axios: any = myAxios
       axios.mockRejectedValue({
         response: {
-          status: 404,
-          statusText: "Unauthorized",
-          data: { errorMessage: "タスクが見つかりませんでした" }
+          status: 500,
+          statusText: "Internal Server Error",
+          data: { errorMessage: "通信に失敗しました" }
         }
       })
       await result.current.createTask("掃除", false)
     })
     expect(result.current.nameError).toBe("")
-    expect(result.current.createTaskError).toBe("タスクが見つかりませんでした")
+    expect(result.current.createTaskError).toBe("通信に失敗しました")
   })
 })
